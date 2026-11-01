@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic SPL fixture for parser tests. Structure mirrors DailyMed SPL XML; text is abridged and not a real label. -->
+<document xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <id root="0d1e2f3a-0000-4000-8000-000000000001"/>
+  <code code="34391-3" codeSystem="2.16.840.1.113883.6.1" displayName="HUMAN PRESCRIPTION DRUG LABEL"/>
+  <title>WARFARIN SODIUM tablet<br/> Synthetic Pharma Inc.</title>
+  <effectiveTime value="20240312"/>
+  <setId root="a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d"/>
+  <versionNumber value="7"/>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <code code="48780-1" codeSystem="2.16.840.1.113883.6.1" displayName="SPL PRODUCT DATA ELEMENTS SECTION"/>
+          <subject>
+            <manufacturedProduct>
+              <manufacturedProduct>
+                <code code="99999-0101" codeSystem="2.16.840.1.113883.6.69"/>
+                <name>Warfarin Sodium</name>
+                <formCode code="C42998" codeSystem="2.16.840.1.113883.3.26.1.1" displayName="TABLET"/>
+                <asEntityWithGeneric>
+                  <genericMedicine>
+                    <name>warfarin sodium</name>
+                  </genericMedicine>
+                </asEntityWithGeneric>
+                <ingredient classCode="ACTIM">
+                  <quantity>
+                    <numerator value="5" unit="mg"/>
+                    <denominator value="1" unit="1"/>
+                  </quantity>
+                  <ingredientSubstance>
+                    <code code="6153CWM0CL" codeSystem="2.16.840.1.113883.4.9"/>
+                    <name>WARFARIN SODIUM</name>
+                    <activeMoiety>
+                      <activeMoiety>
+                        <code code="5Q7ZVV76EI" codeSystem="2.16.840.1.113883.4.9"/>
+                        <name>WARFARIN</name>
+                      </activeMoiety>
+                    </activeMoiety>
+                  </ingredientSubstance>
+                </ingredient>
+                <ingredient classCode="IACT">
+                  <ingredientSubstance>
+                    <code code="EWQ57Q8I5X" codeSystem="2.16.840.1.113883.4.9"/>
+                    <name>LACTOSE MONOHYDRATE</name>
+                  </ingredientSubstance>
+                </ingredient>
+                <ingredient classCode="IACT">
+                  <ingredientSubstance>
+                    <code code="70097M6I30" codeSystem="2.16.840.1.113883.4.9"/>
+                    <name>MAGNESIUM STEARATE</name>
+                  </ingredientSubstance>
+                </ingredient>
+              </manufacturedProduct>
+              <consumedIn>
+                <substanceAdministration>
+                  <routeCode code="C38288" codeSystem="2.16.840.1.113883.3.26.1.1" displayName="ORAL"/>
+                </substanceAdministration>
+              </consumedIn>
+            </manufacturedProduct>
+          </subject>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="34066-1" codeSystem="2.16.840.1.113883.6.1" displayName="BOXED WARNING SECTION"/>
+          <title>WARNING: BLEEDING RISK</title>
+          <excerpt>
+            <highlight>
+              <text><paragraph>HIGHLIGHT DUPLICATE: may cause major or fatal bleeding.</paragraph></text>
+            </highlight>
+          </excerpt>
+          <text>
+            <list listType="unordered">
+              <item>Warfarin can cause major or fatal bleeding.</item>
+              <item>Perform regular monitoring of INR in all treated patients.</item>
+            </list>
+          </text>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="34070-3" codeSystem="2.16.840.1.113883.6.1" displayName="CONTRAINDICATIONS SECTION"/>
+          <title>4 CONTRAINDICATIONS</title>
+          <text>
+            <paragraph>Warfarin is contraindicated in <content styleCode="bold">pregnancy</content>, except in women with mechanical heart valves.</paragraph>
+            <paragraph>Hemorrhagic tendencies or blood dyscrasias.</paragraph>
+          </text>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="43685-7" codeSystem="2.16.840.1.113883.6.1" displayName="WARNINGS AND PRECAUTIONS SECTION"/>
+          <title>5 WARNINGS AND PRECAUTIONS</title>
+          <component>
+            <section>
+              <code code="42229-5" codeSystem="2.16.840.1.113883.6.1" displayName="SPL UNCLASSIFIED SECTION"/>
+              <title>5.1 Hemorrhage</title>
+              <text><paragraph>Warfarin can cause major or fatal bleeding. Risk factors include an INR above 4.0.</paragraph></text>
+            </section>
+          </component>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="34073-7" codeSystem="2.16.840.1.113883.6.1" displayName="DRUG INTERACTIONS SECTION"/>
+          <title>7 DRUG INTERACTIONS</title>
+          <text>
+            <paragraph>Concomitant use of drugs that increase bleeding risk may increase the risk of hemorrhage.</paragraph>
+          </text>
+          <component>
+            <section>
+              <code code="42229-5" codeSystem="2.16.840.1.113883.6.1" displayName="SPL UNCLASSIFIED SECTION"/>
+              <title>7.1 CYP450 Interactions</title>
+              <text>
+                <table>
+                  <caption>Table 1: Examples of CYP450 Interactions with Warfarin</caption>
+                  <thead>
+                    <tr><th>Enzyme</th><th>Inhibitors</th><th>Inducers</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>CYP2C9</td><td>amiodarone, fluconazole</td><td>rifampin</td></tr>
+                    <tr><td>CYP3A4</td><td>clarithromycin</td><td>carbamazepine</td></tr>
+                  </tbody>
+                </table>
+              </text>
+            </section>
+          </component>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="51727-6" codeSystem="2.16.840.1.113883.6.1" displayName="INACTIVE INGREDIENT SECTION"/>
+          <title>INACTIVE INGREDIENTS</title>
+          <text><paragraph>lactose monohydrate, magnesium stearate</paragraph></text>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</document>

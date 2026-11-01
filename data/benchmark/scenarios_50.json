@@ -1,0 +1,1102 @@
+[
+  {
+    "scenario_id": "BENCH-DDI-01",
+    "category": "DDI",
+    "description": "Warfarin and Ibuprofen concurrent administration",
+    "medications": [
+      {
+        "rxcui": "11289",
+        "canonical_name": "Warfarin",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "5640",
+        "canonical_name": "Ibuprofen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DDI-001"
+  },
+  {
+    "scenario_id": "BENCH-DDI-02",
+    "category": "DDI",
+    "description": "Simvastatin and Clarithromycin concurrent administration (CYP3A4 inhibition)",
+    "medications": [
+      {
+        "rxcui": "36567",
+        "canonical_name": "Simvastatin",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "21212",
+        "canonical_name": "Clarithromycin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DDI-003"
+  },
+  {
+    "scenario_id": "BENCH-DDI-03",
+    "category": "DDI",
+    "description": "Sildenafil and Nitroglycerin coadministration (severe hypotension)",
+    "medications": [
+      {
+        "rxcui": "136443",
+        "canonical_name": "Sildenafil",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "4917",
+        "canonical_name": "Nitroglycerin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DDI-004"
+  },
+  {
+    "scenario_id": "BENCH-DDI-04",
+    "category": "DDI",
+    "description": "Methotrexate and Naproxen concurrent use (decreased renal clearance)",
+    "medications": [
+      {
+        "rxcui": "6851",
+        "canonical_name": "Methotrexate",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "7258",
+        "canonical_name": "Naproxen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DDI-002"
+  },
+  {
+    "scenario_id": "BENCH-DDI-05",
+    "category": "DDI",
+    "description": "Lisinopril and Spironolactone (severe hyperkalemia risk)",
+    "medications": [
+      {
+        "rxcui": "29046",
+        "canonical_name": "Lisinopril",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "9997",
+        "canonical_name": "Spironolactone",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "MAJOR",
+    "expected_rule_id": "RULE-DDI-005"
+  },
+  {
+    "scenario_id": "BENCH-DDI-06",
+    "category": "DDI",
+    "description": "Benign combination: Levothyroxine and Calcium Carbonate (staggered administration)",
+    "medications": [
+      {
+        "rxcui": "10582",
+        "canonical_name": "Levothyroxine",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "1895",
+        "canonical_name": "Calcium Carbonate",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-07",
+    "category": "DDI",
+    "description": "Fluoxetine and Tramadol (Serotonin Syndrome risk)",
+    "medications": [
+      {
+        "rxcui": "4493",
+        "canonical_name": "Fluoxetine",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "10689",
+        "canonical_name": "Tramadol",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "MAJOR",
+    "expected_rule_id": "RULE-DDI-006"
+  },
+  {
+    "scenario_id": "BENCH-DDI-08",
+    "category": "DDI",
+    "description": "Warfarin and Clarithromycin",
+    "medications": [
+      {
+        "rxcui": "11289",
+        "canonical_name": "Warfarin",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "21212",
+        "canonical_name": "Clarithromycin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-09",
+    "category": "DDI",
+    "description": "Benign combination: Amoxicillin and Acetaminophen",
+    "medications": [
+      {
+        "rxcui": "723",
+        "canonical_name": "Amoxicillin",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-10",
+    "category": "DDI",
+    "description": "Benign combination: Atorvastatin and Metformin",
+    "medications": [
+      {
+        "rxcui": "83367",
+        "canonical_name": "Atorvastatin",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-11",
+    "category": "DDI",
+    "description": "Benign combination: Omeprazole and Lisinopril",
+    "medications": [
+      {
+        "rxcui": "7646",
+        "canonical_name": "Omeprazole",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "29046",
+        "canonical_name": "Lisinopril",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-12",
+    "category": "DDI",
+    "description": "Benign combination: Levothyroxine and Metformin",
+    "medications": [
+      {
+        "rxcui": "10582",
+        "canonical_name": "Levothyroxine",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-13",
+    "category": "DDI",
+    "description": "Benign combination: Cetirizine and Ibuprofen",
+    "medications": [
+      {
+        "rxcui": "20610",
+        "canonical_name": "Cetirizine",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "5640",
+        "canonical_name": "Ibuprofen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-14",
+    "category": "DDI",
+    "description": "Benign combination: Albuterol and Amoxicillin",
+    "medications": [
+      {
+        "rxcui": "435",
+        "canonical_name": "Albuterol",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "723",
+        "canonical_name": "Amoxicillin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DDI-15",
+    "category": "DDI",
+    "description": "Benign combination: Amlodipine and Metformin",
+    "medications": [
+      {
+        "rxcui": "17767",
+        "canonical_name": "Amlodipine",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-01",
+    "category": "DFI",
+    "description": "Atorvastatin with Grapefruit Juice",
+    "medications": [
+      {
+        "rxcui": "83367",
+        "canonical_name": "Atorvastatin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Grapefruit Juice"
+    ],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "MAJOR",
+    "expected_rule_id": "RULE-DFI-001"
+  },
+  {
+    "scenario_id": "BENCH-DFI-02",
+    "category": "DFI",
+    "description": "Ciprofloxacin with Milk and Dairy products",
+    "medications": [
+      {
+        "rxcui": "2551",
+        "canonical_name": "Ciprofloxacin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Milk and Dairy"
+    ],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "MODERATE",
+    "expected_rule_id": "RULE-DFI-002"
+  },
+  {
+    "scenario_id": "BENCH-DFI-03",
+    "category": "DFI",
+    "description": "Metronidazole with Alcohol / Ethanol beverage",
+    "medications": [
+      {
+        "rxcui": "6922",
+        "canonical_name": "Metronidazole",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Alcohol / Beer"
+    ],
+    "user_context": null,
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DFI-004"
+  },
+  {
+    "scenario_id": "BENCH-DFI-04",
+    "category": "DFI",
+    "description": "Benign diet: Amoxicillin with Orange Juice",
+    "medications": [
+      {
+        "rxcui": "723",
+        "canonical_name": "Amoxicillin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Orange Juice"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-05",
+    "category": "DFI",
+    "description": "Benign diet: Acetaminophen with Bread",
+    "medications": [
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Bread"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-06",
+    "category": "DFI",
+    "description": "Benign diet: Metformin with Salad",
+    "medications": [
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Green Salad"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-07",
+    "category": "DFI",
+    "description": "Benign diet: Lisinopril with Coffee",
+    "medications": [
+      {
+        "rxcui": "29046",
+        "canonical_name": "Lisinopril",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Coffee"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-08",
+    "category": "DFI",
+    "description": "Benign diet: Cetirizine with Water",
+    "medications": [
+      {
+        "rxcui": "20610",
+        "canonical_name": "Cetirizine",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Water"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-09",
+    "category": "DFI",
+    "description": "Benign diet: Albuterol with Apples",
+    "medications": [
+      {
+        "rxcui": "435",
+        "canonical_name": "Albuterol",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Apples"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DFI-10",
+    "category": "DFI",
+    "description": "Benign diet: Omeprazole with Oatmeal",
+    "medications": [
+      {
+        "rxcui": "7646",
+        "canonical_name": "Omeprazole",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [
+      "Oatmeal"
+    ],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DCI-01",
+    "category": "DCI",
+    "description": "Propranolol in patient with Bronchial Asthma (J45)",
+    "medications": [
+      {
+        "rxcui": "8787",
+        "canonical_name": "Propranolol",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_01",
+      "conditions": [
+        {
+          "condition_name": "Bronchial Asthma",
+          "icd10_code": "J45.9"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DCI-001"
+  },
+  {
+    "scenario_id": "BENCH-DCI-02",
+    "category": "DCI",
+    "description": "Metformin in patient with Severe Renal Impairment / eGFR < 30 (N18.4)",
+    "medications": [
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_02",
+      "conditions": [
+        {
+          "condition_name": "Severe Chronic Kidney Disease Stage 4-5",
+          "icd10_code": "N18.4"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DCI-002"
+  },
+  {
+    "scenario_id": "BENCH-DCI-03",
+    "category": "DCI",
+    "description": "Celecoxib in patient with Active Peptic Ulcer Disease (K27)",
+    "medications": [
+      {
+        "rxcui": "140587",
+        "canonical_name": "Celecoxib",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_03",
+      "conditions": [
+        {
+          "condition_name": "Peptic Ulcer",
+          "icd10_code": "K27"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DCI-003"
+  },
+  {
+    "scenario_id": "BENCH-DCI-04",
+    "category": "DCI",
+    "description": "Bupropion in patient with Epilepsy and Seizure Disorder (G40)",
+    "medications": [
+      {
+        "rxcui": "42347",
+        "canonical_name": "Bupropion",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_04",
+      "conditions": [
+        {
+          "condition_name": "Epilepsy",
+          "icd10_code": "G40"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-DCI-004"
+  },
+  {
+    "scenario_id": "BENCH-DCI-05",
+    "category": "DCI",
+    "description": "Benign: Acetaminophen in patient with Asthma",
+    "medications": [
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_05",
+      "conditions": [
+        {
+          "condition_name": "Asthma",
+          "icd10_code": "J45"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DCI-06",
+    "category": "DCI",
+    "description": "Benign: Amoxicillin in patient with Hypertension (I10)",
+    "medications": [
+      {
+        "rxcui": "723",
+        "canonical_name": "Amoxicillin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_06",
+      "conditions": [
+        {
+          "condition_name": "Essential Hypertension",
+          "icd10_code": "I10"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DCI-07",
+    "category": "DCI",
+    "description": "Benign: Cetirizine in patient with Hyperlipidemia (E78)",
+    "medications": [
+      {
+        "rxcui": "20610",
+        "canonical_name": "Cetirizine",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_07",
+      "conditions": [
+        {
+          "condition_name": "Hyperlipidemia",
+          "icd10_code": "E78"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DCI-08",
+    "category": "DCI",
+    "description": "Benign: Atorvastatin in patient with Asthma (J45)",
+    "medications": [
+      {
+        "rxcui": "83367",
+        "canonical_name": "Atorvastatin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_08",
+      "conditions": [
+        {
+          "condition_name": "Asthma",
+          "icd10_code": "J45"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DCI-09",
+    "category": "DCI",
+    "description": "Benign: Metformin in patient with Hypertension (I10)",
+    "medications": [
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_09",
+      "conditions": [
+        {
+          "condition_name": "Hypertension",
+          "icd10_code": "I10"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-DCI-10",
+    "category": "DCI",
+    "description": "Benign: Levothyroxine in patient with Osteoarthritis (M19)",
+    "medications": [
+      {
+        "rxcui": "10582",
+        "canonical_name": "Levothyroxine",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_dci_10",
+      "conditions": [
+        {
+          "condition_name": "Osteoarthritis",
+          "icd10_code": "M19"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-01",
+    "category": "ALLERGY",
+    "description": "Amoxicillin prescribed to patient with Penicillin Allergy",
+    "medications": [
+      {
+        "rxcui": "723",
+        "canonical_name": "Amoxicillin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_01",
+      "allergies": [
+        {
+          "substance_name": "Penicillin",
+          "severity": "SEVERE_ANAPHYLAXIS"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-ALLERG-001"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-02",
+    "category": "ALLERGY",
+    "description": "Cephalexin prescribed to patient with Penicillin Allergy (beta-lactam cross-reactivity)",
+    "medications": [
+      {
+        "rxcui": "2231",
+        "canonical_name": "Cephalexin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_02",
+      "allergies": [
+        {
+          "substance_name": "Penicillin",
+          "severity": "MODERATE"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "CONTRAINDICATED",
+    "expected_rule_id": "RULE-ALLERG-001"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-03",
+    "category": "ALLERGY",
+    "description": "Tartrazine excipient exposure in Tartrazine-allergic patient",
+    "medications": [
+      {
+        "rxcui": "999001",
+        "canonical_name": "Coated Yellow Tablet",
+        "term_type": "SCD",
+        "ingredients": [
+          {
+            "unii": "EWQ57Q8I5X",
+            "name": "Tartrazine",
+            "is_active": false
+          }
+        ]
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_03",
+      "allergies": [
+        {
+          "substance_name": "Tartrazine",
+          "severity": "MODERATE"
+        }
+      ]
+    },
+    "expected_has_risk": true,
+    "expected_min_severity": "MAJOR",
+    "expected_rule_id": "RULE-ALLERG-003"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-04",
+    "category": "ALLERGY",
+    "description": "Benign: Ciprofloxacin in Penicillin-allergic patient (Fluoroquinolone != Beta-lactam)",
+    "medications": [
+      {
+        "rxcui": "2551",
+        "canonical_name": "Ciprofloxacin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_04",
+      "allergies": [
+        {
+          "substance_name": "Penicillin",
+          "severity": "SEVERE_ANAPHYLAXIS"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-05",
+    "category": "ALLERGY",
+    "description": "Benign: Acetaminophen in Penicillin-allergic patient",
+    "medications": [
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_05",
+      "allergies": [
+        {
+          "substance_name": "Penicillin",
+          "severity": "MILD"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-06",
+    "category": "ALLERGY",
+    "description": "Benign: Atorvastatin in Sulfa-allergic patient",
+    "medications": [
+      {
+        "rxcui": "83367",
+        "canonical_name": "Atorvastatin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_06",
+      "allergies": [
+        {
+          "substance_name": "Sulfonamides",
+          "severity": "MODERATE"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-07",
+    "category": "ALLERGY",
+    "description": "Benign: Metformin in Peanut-allergic patient",
+    "medications": [
+      {
+        "rxcui": "6809",
+        "canonical_name": "Metformin",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_07",
+      "allergies": [
+        {
+          "substance_name": "Peanuts",
+          "severity": "SEVERE_ANAPHYLAXIS"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-08",
+    "category": "ALLERGY",
+    "description": "Benign: Lisinopril in Shellfish-allergic patient",
+    "medications": [
+      {
+        "rxcui": "29046",
+        "canonical_name": "Lisinopril",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_08",
+      "allergies": [
+        {
+          "substance_name": "Shellfish",
+          "severity": "SEVERE_ANAPHYLAXIS"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-09",
+    "category": "ALLERGY",
+    "description": "Benign: Omeprazole in Latex-allergic patient",
+    "medications": [
+      {
+        "rxcui": "7646",
+        "canonical_name": "Omeprazole",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_09",
+      "allergies": [
+        {
+          "substance_name": "Latex",
+          "severity": "MODERATE"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-ALLERGY-10",
+    "category": "ALLERGY",
+    "description": "Benign: Cetirizine in Egg-allergic patient",
+    "medications": [
+      {
+        "rxcui": "20610",
+        "canonical_name": "Cetirizine",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_allergy_10",
+      "allergies": [
+        {
+          "substance_name": "Egg",
+          "severity": "MILD"
+        }
+      ]
+    },
+    "expected_has_risk": false,
+    "expected_min_severity": "UNKNOWN_SEVERITY"
+  },
+  {
+    "scenario_id": "BENCH-EDGE-01",
+    "category": "EDGE_CASE",
+    "description": "Ambiguous medication concept emits AMBIGUOUS_MEDICATION_IDENTITY",
+    "medications": [
+      {
+        "rxcui": "999888",
+        "canonical_name": "Metoprolol Generic",
+        "term_type": "IN",
+        "is_ambiguous": true,
+        "ambiguity_candidates": [
+          "Metoprolol Tartrate",
+          "Metoprolol Succinate"
+        ]
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_status": "ambiguous_medication_identity"
+  },
+  {
+    "scenario_id": "BENCH-EDGE-02",
+    "category": "EDGE_CASE",
+    "description": "Missing patient context emits INSUFFICIENT_EVIDENCE warning",
+    "medications": [
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": null,
+    "expected_has_risk": false,
+    "expected_status": "insufficient_evidence"
+  },
+  {
+    "scenario_id": "BENCH-EDGE-03",
+    "category": "EDGE_CASE",
+    "description": "Fully cleared patient with zero active hazards",
+    "medications": [
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_cleared_01",
+      "allergies": [],
+      "conditions": []
+    },
+    "expected_has_risk": false,
+    "expected_status": "insufficient_evidence"
+  },
+  {
+    "scenario_id": "BENCH-EDGE-04",
+    "category": "EDGE_CASE",
+    "description": "Single medication benign check without food or condition conflicts",
+    "medications": [
+      {
+        "rxcui": "20610",
+        "canonical_name": "Cetirizine",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_cleared_02",
+      "allergies": [],
+      "conditions": []
+    },
+    "expected_has_risk": false,
+    "expected_status": "insufficient_evidence"
+  },
+  {
+    "scenario_id": "BENCH-EDGE-05",
+    "category": "EDGE_CASE",
+    "description": "Coadministration with multiple safe OTC supplements without rules hit",
+    "medications": [
+      {
+        "rxcui": "723",
+        "canonical_name": "Amoxicillin",
+        "term_type": "IN"
+      },
+      {
+        "rxcui": "161",
+        "canonical_name": "Acetaminophen",
+        "term_type": "IN"
+      }
+    ],
+    "food_items": [],
+    "user_context": {
+      "user_id": "pt_cleared_03",
+      "allergies": [],
+      "conditions": []
+    },
+    "expected_has_risk": false,
+    "expected_status": "insufficient_evidence"
+  }
+]

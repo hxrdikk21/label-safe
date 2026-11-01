@@ -1,0 +1,18 @@
+{
+  "version": "1",
+  "note": "Foods and drinks people type, with everyday aliases. Feeds food search and label-derived food rules.",
+  "foods": [
+    {"name": "grapefruit", "aliases": ["grapefruit juice", "pomelo", "seville orange"]},
+    {"name": "alcohol", "aliases": ["wine", "beer", "liquor", "spirits", "vodka", "whisky", "whiskey", "rum", "gin", "ethanol"]},
+    {"name": "dairy", "aliases": ["milk", "yogurt", "yoghurt", "cheese", "kefir", "calcium-fortified juice"]},
+    {"name": "tyramine", "aliases": ["aged cheese", "cured meat", "salami", "soy sauce", "sauerkraut", "draft beer"]},
+    {"name": "caffeine", "aliases": ["coffee", "tea", "energy drink", "cola"]},
+    {"name": "vitamin k", "aliases": ["spinach", "kale", "broccoli", "leafy greens"]},
+    {"name": "potassium", "aliases": ["banana", "salt substitute", "potassium supplement"]},
+    {"name": "licorice", "aliases": ["liquorice"]},
+    {"name": "cranberry", "aliases": ["cranberry juice"]},
+    {"name": "st john's wort", "aliases": ["st. john's wort", "hypericum"]},
+    {"name": "high-fat meal", "aliases": ["fatty meal"]},
+    {"name": "antacids", "aliases": ["calcium carbonate", "magnesium hydroxide", "aluminum hydroxide"]}
+  ]
+}

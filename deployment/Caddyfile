@@ -1,0 +1,10 @@
+# TLS in front of the API (which also serves the SPA). With a real DOMAIN, Caddy obtains and renews
+# a Let's Encrypt certificate automatically; DOMAIN=localhost uses Caddy's local CA for testing.
+{$DOMAIN} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+	reverse_proxy api:8000
+}
