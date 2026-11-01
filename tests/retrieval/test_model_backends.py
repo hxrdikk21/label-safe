@@ -9,11 +9,11 @@ import time
 
 import pytest
 
-from src.rxguard.core import config
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.rag import reranker as rr
-from src.rxguard.vector_store import embeddings as emb
-from src.rxguard.vector_store.pgvector_store import to_pgvector
+from src.labelsafe.core import config
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.rag import reranker as rr
+from src.labelsafe.vector_store import embeddings as emb
+from src.labelsafe.vector_store.pgvector_store import to_pgvector
 
 
 def passage(pid: str, content: str) -> EvidencePassage:

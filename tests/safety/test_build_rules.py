@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.core.contracts.medication import IngredientReference, MedicationConcept
-from src.rxguard.safety.build_rules import ddinter_rules, label_rules, load_foods, write_rules
-from src.rxguard.safety.rules_db import SafetyRulesRepository
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.core.contracts.medication import IngredientReference, MedicationConcept
+from src.labelsafe.safety.build_rules import ddinter_rules, label_rules, load_foods, write_rules
+from src.labelsafe.safety.rules_db import SafetyRulesRepository
 
 
 def concept(rxcui: str, name: str, *synonyms: str, ingredients: tuple[str, ...] = ()) -> MedicationConcept:
@@ -111,8 +111,8 @@ def test_generated_rules_never_override_curated_ones(tmp_path: Path) -> None:
 def test_ddinter_rules_can_be_switched_off_for_commercial_use(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from src.rxguard.core.config import get_settings
-    from src.rxguard.safety import rules_db
+    from src.labelsafe.core.config import get_settings
+    from src.labelsafe.safety import rules_db
 
     base = {"mechanism_summary": "x", "clinical_consequence": "x", "actionable_warning": "x"}
     rule = {

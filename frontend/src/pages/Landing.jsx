@@ -3,6 +3,7 @@ import CountUp from '../components/bits/CountUp';
 import PipelineStory from '../components/PipelineStory';
 import RxLabel from '../components/RxLabel';
 import Sticker from '../components/Sticker';
+import Logo from '../components/Logo';
 import SeverityBadge from '../components/SeverityBadge';
 import { statsApi } from '../services/api';
 
@@ -96,7 +97,7 @@ export default function Landing() {
             </div>
           </div>
           <p className="lede" style={{ marginTop: 32 }}>
-            An explanation can never change, soften or hide a finding. If the labels don’t cover your question, RxGuard
+            An explanation can never change, soften or hide a finding. If the labels don’t cover your question, LabelSafe
             says the evidence is insufficient rather than reassuring you.
           </p>
         </div>
@@ -135,9 +136,7 @@ export default function Landing() {
           </div>
         )}
         <div className="pad">
-          <span className="pad-rx" aria-hidden="true">
-            Rx
-          </span>
+          <Logo size={56} />
           <div style={{ flex: 1, minWidth: 220 }}>
             <h2>Check your list now</h2>
             <p className="muted">No account needed. Take the result to your pharmacist or doctor.</p>

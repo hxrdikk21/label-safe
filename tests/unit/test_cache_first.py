@@ -8,21 +8,21 @@ import respx
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from src.rxguard.database.models import CacheEntryStatus, ExternalLookupCache
-from src.rxguard.ingestion.cache_manager import (
+from src.labelsafe.database.models import CacheEntryStatus, ExternalLookupCache
+from src.labelsafe.ingestion.cache_manager import (
     NEGATIVE_CACHE_TTL,
     CacheManager,
     Fetcher,
     LookupStatus,
     build_cache_key,
 )
-from src.rxguard.ingestion.dailymed import DEFAULT_BASE_URL as DAILYMED_URL
-from src.rxguard.ingestion.dailymed import DailyMedClient
-from src.rxguard.ingestion.errors import UpstreamUnavailableError
-from src.rxguard.ingestion.http import RetryPolicy
-from src.rxguard.ingestion.rxnav import DEFAULT_BASE_URL as RXNAV_URL
-from src.rxguard.ingestion.rxnav import RxNavClient
-from src.rxguard.knowledge.normalizer import MedicationNormalizer, MedicationNotFoundError
+from src.labelsafe.ingestion.dailymed import DEFAULT_BASE_URL as DAILYMED_URL
+from src.labelsafe.ingestion.dailymed import DailyMedClient
+from src.labelsafe.ingestion.errors import UpstreamUnavailableError
+from src.labelsafe.ingestion.http import RetryPolicy
+from src.labelsafe.ingestion.rxnav import DEFAULT_BASE_URL as RXNAV_URL
+from src.labelsafe.ingestion.rxnav import RxNavClient
+from src.labelsafe.knowledge.normalizer import MedicationNormalizer, MedicationNotFoundError
 from tests.unit.conftest import FakeWallClock
 from tests.unit.rxnav_mocks import mock_atorvastatin
 

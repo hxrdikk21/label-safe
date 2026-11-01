@@ -2,20 +2,80 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f4f7f6" />
-    <meta name="description" content="Check medications for drug, food, condition and allergy interactions in one step." />
-    <title>RxGuard — medication interaction checker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <title>LabelSafe — medication interaction checker</title>
+    <meta name="description" content="Check medications for drug, food, condition and allergy interactions in one step, explained with quotes from official FDA labels." />
+    <!-- Site URL also set in public/robots.txt and public/sitemap.xml: change all three together. -->
+    <link rel="canonical" href="https://labelsafe.example.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LabelSafe" />
+    <meta property="og:title" content="LabelSafe — medication interaction checker" />
+    <meta property="og:description" content="Drug, food, condition and allergy interactions, explained with quotes from official FDA labels." />
+    <meta property="og:url" content="https://labelsafe.example.com/" />
+    <meta property="og:image" content="https://labelsafe.example.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="LabelSafe: check your medicines before they clash." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Loader styles, the single definition: inline so the boot loader paints before the CSS loads;
+         src/components/Loader.jsx reuses these classes for page changes. -->
+    <style>
+      .loader {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+      }
+      .loader-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: #f4f7f6;
+        transition: opacity 0.25s ease-out;
+      }
+      .loader-overlay.is-done {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .loader-dots {
+        display: flex;
+        gap: 12px;
+      }
+      /* Drug, food, condition, allergy: the site's interaction-type colours. */
+      .loader-dots i {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        animation: loader-hop 0.9s ease-in-out infinite;
+      }
+      .loader-dots i:nth-child(1) { background: #ee7b30; }
+      .loader-dots i:nth-child(2) { background: #f2c230; animation-delay: 0.12s; }
+      .loader-dots i:nth-child(3) { background: #2d6bd8; animation-delay: 0.24s; }
+      .loader-dots i:nth-child(4) { background: #3aae7a; animation-delay: 0.36s; }
+      @keyframes loader-hop {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-16px); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .loader-dots i { animation: none; }
+      }
+    </style>
   </head>
   <body>
+    <!-- Boot loader: src/main.jsx fades it out once the app has shown for a moment. -->
+    <div id="boot" class="loader loader-overlay" role="status" aria-label="Loading LabelSafe">
+      <span class="loader-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
     <div id="root"></div>
+    <noscript>LabelSafe needs JavaScript to check your medicines.</noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

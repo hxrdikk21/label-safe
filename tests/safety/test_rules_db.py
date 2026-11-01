@@ -7,15 +7,15 @@ matching.
 import pytest
 from pydantic import ValidationError
 
-from src.rxguard.core.contracts.safety import FindingSeverity
-from src.rxguard.safety.models import (
+from src.labelsafe.core.contracts.safety import FindingSeverity
+from src.labelsafe.safety.models import (
     AllergyRule,
     DCIRule,
     DDIRule,
     DFIRule,
     RuleStatus,
 )
-from src.rxguard.safety.rules_db import SafetyRulesRepository, get_safety_rules_repo
+from src.labelsafe.safety.rules_db import SafetyRulesRepository, get_safety_rules_repo
 
 
 class TestSafetyRuleModels:

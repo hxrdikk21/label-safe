@@ -10,12 +10,12 @@ from typing import Any
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api import dependencies
-from src.rxguard.api.main import app
-from src.rxguard.auth.rate_limit import LoginRateLimiter
-from src.rxguard.auth.store import InMemoryAuthStore
-from src.rxguard.users.profile_store import InMemoryProfileStore
-from src.rxguard.users.service import UserService
+from src.labelsafe.api import dependencies
+from src.labelsafe.api.main import app
+from src.labelsafe.auth.rate_limit import LoginRateLimiter
+from src.labelsafe.auth.store import InMemoryAuthStore
+from src.labelsafe.users.profile_store import InMemoryProfileStore
+from src.labelsafe.users.service import UserService
 
 PASSWORD = "CorrectHorseBattery9!"
 

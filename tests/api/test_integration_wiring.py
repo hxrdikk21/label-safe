@@ -12,11 +12,11 @@ from typing import Any, TypeVar
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api.dependencies import get_rag_service
-from src.rxguard.api.main import app
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.rag.retriever import InMemoryRetriever, PostgresRetriever
-from src.rxguard.rag.service import RagService
+from src.labelsafe.api.dependencies import get_rag_service
+from src.labelsafe.api.main import app
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.rag.retriever import InMemoryRetriever, PostgresRetriever
+from src.labelsafe.rag.service import RagService
 
 T = TypeVar("T")
 
@@ -109,7 +109,7 @@ def test_analyze_explanation_abstains_without_passages() -> None:
 
 
 def test_retriever_dependency_is_env_gated(monkeypatch: pytest.MonkeyPatch) -> None:
-    from src.rxguard.api import dependencies
+    from src.labelsafe.api import dependencies
 
     dependencies.get_retriever.cache_clear()
     dependencies.get_session_factory.cache_clear()

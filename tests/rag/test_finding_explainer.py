@@ -5,11 +5,11 @@ import json
 
 import pytest
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.core.contracts.medication import MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
-from src.rxguard.rag.finding_explainer import MAX_EXPLAINED, FindingExplainer, finding_question
-from src.rxguard.safety.rules_db import SafetyRulesRepository
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.core.contracts.medication import MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
+from src.labelsafe.rag.finding_explainer import MAX_EXPLAINED, FindingExplainer, finding_question
+from src.labelsafe.safety.rules_db import SafetyRulesRepository
 
 WARFARIN = MedicationConcept(rxcui="11289", canonical_name="warfarin", term_type="IN")
 IBUPROFEN = MedicationConcept(rxcui="5640", canonical_name="ibuprofen", term_type="IN")
@@ -65,7 +65,7 @@ class FakeChat:
 
 @pytest.fixture(autouse=True)
 def _fresh_cache() -> None:
-    from src.rxguard.rag import finding_explainer
+    from src.labelsafe.rag import finding_explainer
 
     finding_explainer._written_cache.clear()
 
@@ -155,8 +155,8 @@ def test_model_inference_never_runs_concurrently() -> None:
     import threading
     import time
 
-    from src.rxguard.rag.reranker import TransformerCrossEncoderReranker
-    from src.rxguard.vector_store.embeddings import SentenceTransformerEmbeddingEngine
+    from src.labelsafe.rag.reranker import TransformerCrossEncoderReranker
+    from src.labelsafe.vector_store.embeddings import SentenceTransformerEmbeddingEngine
 
     active, peak = 0, 0
     guard = threading.Lock()

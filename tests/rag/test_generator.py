@@ -12,20 +12,20 @@ import pytest
 from google import genai
 from google.genai import errors, types
 
-from src.rxguard.core.config import Settings
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.core.contracts.medication import MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
-from src.rxguard.rag.generator import (
+from src.labelsafe.core.config import Settings
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.core.contracts.medication import MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
+from src.labelsafe.rag.generator import (
     ContextBuilder,
     GeminiNarrativeGenerator,
     TemplateNarrativeGenerator,
     cite_sentences,
     get_narrative_generator,
 )
-from src.rxguard.rag.reranker import CrossEncoderReranker
-from src.rxguard.rag.retriever import InMemoryRetriever
-from src.rxguard.rag.service import RagService
+from src.labelsafe.rag.reranker import CrossEncoderReranker
+from src.labelsafe.rag.retriever import InMemoryRetriever
+from src.labelsafe.rag.service import RagService
 
 CONTENT = "Concomitant use of warfarin and ibuprofen increases the risk of serious gastrointestinal bleeding."
 PASSAGES = [
@@ -113,7 +113,7 @@ def test_gemini_generator_sends_grounded_request() -> None:
     call = models.calls[0]
     assert call["model"] == "gemini-3.8-flash"
     user = call["contents"]
-    assert f"<user_query>{QUERY}</user_query>" in user  # untrusted text is fenced (SECURITY.md section 4)
+    assert f"<user_query>{QUERY}</user_query>" in user  # untrusted text is fenced
     assert "EVIDENCE [P-1]" in user and "RULE-DDI-001" in user and "CONTRAINDICATED" in user
     assert "never contradict" in call["config"].system_instruction
 

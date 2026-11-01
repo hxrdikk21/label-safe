@@ -1,17 +1,17 @@
-# RxGuard-RAG development stack: PostgreSQL 16 + pgvector is the only datastore.
+# LabelSafe development stack: PostgreSQL 16 + pgvector is the only datastore.
 #
 #   cp .env.example .env   # then set POSTGRES_PASSWORD
 #   docker compose up -d --wait
 
-name: rxguard
+name: labelsafe
 
 services:
   postgres:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-rxguard_user}
+      POSTGRES_USER: ${POSTGRES_USER:-labelsafe_user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB:-rxguard_db}
+      POSTGRES_DB: ${POSTGRES_DB:-labelsafe_db}
     ports:
       - "5432:5432"
     volumes:

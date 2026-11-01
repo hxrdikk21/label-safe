@@ -15,7 +15,7 @@ const STEPS = [
   },
   {
     title: 'We find the label text',
-    text: 'RxGuard searches the official FDA labels of your medicines for passages about the risk, matching both meaning and exact words.',
+    text: 'LabelSafe searches the official FDA labels of your medicines for passages about the risk, matching both meaning and exact words.',
     tech: 'pgvector and keyword search, fused with reciprocal rank fusion.',
   },
   {
@@ -25,7 +25,7 @@ const STEPS = [
   },
   {
     title: 'Enough evidence? If not, we say so',
-    text: 'If the passages do not clearly cover the question, RxGuard tries one rephrased search. If that still falls short, it tells you instead of guessing.',
+    text: 'If the passages do not clearly cover the question, LabelSafe tries one rephrased search. If that still falls short, it tells you instead of guessing.',
     tech: 'Corrective RAG gate.',
   },
   {

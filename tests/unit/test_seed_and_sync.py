@@ -9,22 +9,22 @@ import pytest
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from src.rxguard.core.contracts.medication import IngredientReference, MedicationConcept
-from src.rxguard.database.models import (
+from src.labelsafe.core.contracts.medication import IngredientReference, MedicationConcept
+from src.labelsafe.database.models import (
     DerivedSyncStatus,
     EntityType,
     MedicationConceptRecord,
     SyncState,
     TargetStore,
 )
-from src.rxguard.database.passage_repository import LabelRepository, PassageRepository
-from src.rxguard.database.sync_tracker import SyncTracker
-from src.rxguard.ingestion.cache_manager import CacheManager, LookupStatus
-from src.rxguard.ingestion.dailymed import parse_spl
-from src.rxguard.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
-from src.rxguard.ingestion.hashing import fingerprint_json
-from src.rxguard.ingestion.ingest_labels import embed_pending, ingest_labels
-from src.rxguard.ingestion.seed_loader import (
+from src.labelsafe.database.passage_repository import LabelRepository, PassageRepository
+from src.labelsafe.database.sync_tracker import SyncTracker
+from src.labelsafe.ingestion.cache_manager import CacheManager, LookupStatus
+from src.labelsafe.ingestion.dailymed import parse_spl
+from src.labelsafe.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
+from src.labelsafe.ingestion.hashing import fingerprint_json
+from src.labelsafe.ingestion.ingest_labels import embed_pending, ingest_labels
+from src.labelsafe.ingestion.seed_loader import (
     DEFAULT_CATALOG_PATH,
     EXPECTED_CONCEPT_COUNT,
     CatalogValidationError,
@@ -36,7 +36,7 @@ from src.rxguard.ingestion.seed_loader import (
     load_catalog,
     validate_catalog,
 )
-from src.rxguard.knowledge.normalizer import CACHE_SOURCE, MedicationNormalizer
+from src.labelsafe.knowledge.normalizer import CACHE_SOURCE, MedicationNormalizer
 
 WARFARIN = "11289"
 
@@ -401,7 +401,7 @@ class TestSyncTrackerAndRepositories:
 
 
 def test_pick_label_skips_homeopathic_kits_and_long_mixtures() -> None:
-    from src.rxguard.ingestion.ingest_labels import pick_label
+    from src.labelsafe.ingestion.ingest_labels import pick_label
 
     hits = [
         SimpleNamespace(

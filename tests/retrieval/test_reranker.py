@@ -3,8 +3,8 @@ Unit tests for Cross-Encoder Reranker.
 Validates two-stage candidate scoring, threshold cutoffs, and entity prioritization.
 """
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.rag.reranker import CrossEncoderReranker
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.rag.reranker import CrossEncoderReranker
 
 
 def test_cross_encoder_reranking_accuracy():

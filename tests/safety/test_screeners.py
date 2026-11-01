@@ -5,15 +5,15 @@ Tests DDI, DFI, DCI, and Allergy/Excipient screening engines across positive, ne
 
 import pytest
 
-from src.rxguard.core.contracts.medication import IngredientReference, MedicationConcept
-from src.rxguard.core.contracts.product import DrugProduct
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus
-from src.rxguard.core.contracts.user_context import UserAllergyRecord, UserConditionRecord
-from src.rxguard.safety.allergies import AllergyScreeningEngine
-from src.rxguard.safety.contraindications import DCIScreeningEngine
-from src.rxguard.safety.ddi import DDIScreeningEngine
-from src.rxguard.safety.dfi import DFIScreeningEngine
-from src.rxguard.safety.rules_db import get_safety_rules_repo
+from src.labelsafe.core.contracts.medication import IngredientReference, MedicationConcept
+from src.labelsafe.core.contracts.product import DrugProduct
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus
+from src.labelsafe.core.contracts.user_context import UserAllergyRecord, UserConditionRecord
+from src.labelsafe.safety.allergies import AllergyScreeningEngine
+from src.labelsafe.safety.contraindications import DCIScreeningEngine
+from src.labelsafe.safety.ddi import DDIScreeningEngine
+from src.labelsafe.safety.dfi import DFIScreeningEngine
+from src.labelsafe.safety.rules_db import get_safety_rules_repo
 
 
 @pytest.fixture(scope="module")

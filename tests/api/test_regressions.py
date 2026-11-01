@@ -10,11 +10,11 @@ from typing import Any
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api.dependencies import get_user_service
-from src.rxguard.api.main import app
-from src.rxguard.auth.jwt import create_access_token
-from src.rxguard.core.contracts.user_context import UserAllergyRecord, UserContext
-from src.rxguard.users.service import UserService
+from src.labelsafe.api.dependencies import get_user_service
+from src.labelsafe.api.main import app
+from src.labelsafe.auth.jwt import create_access_token
+from src.labelsafe.core.contracts.user_context import UserAllergyRecord, UserContext
+from src.labelsafe.users.service import UserService
 
 client = TestClient(app)
 

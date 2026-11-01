@@ -5,7 +5,7 @@ Tests RFC 6238 TOTP secret generation, token verification, window tolerance, and
 
 import time
 
-from src.rxguard.auth.two_factor import (
+from src.labelsafe.auth.two_factor import (
     generate_backup_codes,
     generate_totp_code,
     generate_totp_secret,
@@ -56,8 +56,8 @@ class TestTwoFactorAuthentication:
 
     def test_totp_uri_formatting(self):
         secret = "JBSWY3DPEHPK3PXP"
-        uri = get_totp_uri(secret, account_name="dr.smith@hospital.org", issuer="RxGuard-RAG")
-        assert uri.startswith("otpauth://totp/RxGuard-RAG:")
+        uri = get_totp_uri(secret, account_name="dr.smith@hospital.org", issuer="LabelSafe")
+        assert uri.startswith("otpauth://totp/LabelSafe:")
         assert "secret=JBSWY3DPEHPK3PXP" in uri
         assert "period=30" in uri
 

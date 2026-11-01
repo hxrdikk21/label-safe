@@ -6,7 +6,7 @@ import sys
 
 from starlette.testclient import TestClient
 
-from src.rxguard.api.main import app
+from src.labelsafe.api.main import app
 
 STRONG_SECRET = "x" * 48
 
@@ -14,7 +14,7 @@ STRONG_SECRET = "x" * 48
 def run_app(**env: str) -> subprocess.CompletedProcess[str]:
     """Imports the app in a fresh interpreter with ``env`` and asks for /docs."""
     code = (
-        "from starlette.testclient import TestClient; from src.rxguard.api.main import app; "
+        "from starlette.testclient import TestClient; from src.labelsafe.api.main import app; "
         "print(TestClient(app).get('/docs').status_code)"
     )
     return subprocess.run(  # noqa: S603 - fixed interpreter and code, test-only

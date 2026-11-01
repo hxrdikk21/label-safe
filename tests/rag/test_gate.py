@@ -2,9 +2,9 @@
 
 import hashlib
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.rag.gate import CRAGGate, GateAction
-from src.rxguard.rag.reranker import RerankedPassage
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.rag.gate import CRAGGate, GateAction
+from src.labelsafe.rag.reranker import RerankedPassage
 
 CONTENT = "Warfarin anticoagulant therapy requires regular prothrombin time monitoring."
 PASSAGE = EvidencePassage(

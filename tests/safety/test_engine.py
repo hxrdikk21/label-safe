@@ -5,11 +5,11 @@ Tests multi-workflow synthesis, missing data handling, severity ranking, and fai
 
 import pytest
 
-from src.rxguard.core.contracts.medication import IngredientReference, MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus
-from src.rxguard.core.contracts.user_context import UserAllergyRecord, UserConditionRecord
-from src.rxguard.safety.engine import ClinicalSafetyReport, SafetyEngine
-from src.rxguard.safety.rules_db import get_safety_rules_repo
+from src.labelsafe.core.contracts.medication import IngredientReference, MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus
+from src.labelsafe.core.contracts.user_context import UserAllergyRecord, UserConditionRecord
+from src.labelsafe.safety.engine import ClinicalSafetyReport, SafetyEngine
+from src.labelsafe.safety.rules_db import get_safety_rules_repo
 
 
 @pytest.fixture(scope="module")

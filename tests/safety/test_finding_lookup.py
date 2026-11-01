@@ -5,10 +5,10 @@ SafetyEngine.get_finding_by_id: resolves recently emitted findings and rule ids
 
 import pytest
 
-from src.rxguard.core.contracts.medication import MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity
-from src.rxguard.safety.engine import SafetyEngine
-from src.rxguard.safety.rules_db import SafetyRulesRepository
+from src.labelsafe.core.contracts.medication import MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity
+from src.labelsafe.safety.engine import SafetyEngine
+from src.labelsafe.safety.rules_db import SafetyRulesRepository
 
 
 @pytest.fixture(scope="module")

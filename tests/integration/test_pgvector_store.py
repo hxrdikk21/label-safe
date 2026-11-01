@@ -1,6 +1,6 @@
 """
 PgVectorStore against PostgreSQL 16 + pgvector, on Mudit's canonical schema
-(src/rxguard/database). Skipped automatically when Docker is unavailable.
+(src/labelsafe/database). Skipped automatically when Docker is unavailable.
 """
 
 import hashlib
@@ -12,11 +12,11 @@ import asyncpg
 import pytest
 import pytest_asyncio
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.database import models
-from src.rxguard.database.connection import create_all, create_engine
-from src.rxguard.vector_store.embeddings import EmbeddingEngine
-from src.rxguard.vector_store.pgvector_store import PgVectorStore
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.database import models
+from src.labelsafe.database.connection import create_all, create_engine
+from src.labelsafe.vector_store.embeddings import EmbeddingEngine
+from src.labelsafe.vector_store.pgvector_store import PgVectorStore
 
 
 def _docker_available() -> bool:

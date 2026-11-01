@@ -10,10 +10,10 @@ import pyotp
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api import dependencies
-from src.rxguard.api.main import app
-from src.rxguard.auth.rate_limit import LoginRateLimiter
-from src.rxguard.auth.store import InMemoryAuthStore
+from src.labelsafe.api import dependencies
+from src.labelsafe.api.main import app
+from src.labelsafe.auth.rate_limit import LoginRateLimiter
+from src.labelsafe.auth.store import InMemoryAuthStore
 
 PASSWORD = "CorrectHorseBattery9!"
 
@@ -83,7 +83,7 @@ def test_request_lists_are_bounded(client: TestClient) -> None:
 def test_app_refuses_weak_jwt_secret(secret: str) -> None:
     env = {**os.environ, "JWT_SECRET_KEY": secret, "MODEL_MODE": "fake"}
     proc = subprocess.run(
-        [sys.executable, "-c", "import src.rxguard.api.main"],
+        [sys.executable, "-c", "import src.labelsafe.api.main"],
         env=env,
         capture_output=True,
         text=True,

@@ -5,14 +5,14 @@ from collections.abc import Sequence
 
 import pytest
 
-from src.rxguard.core.config import Settings
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.core.contracts.medication import MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
-from src.rxguard.rag.generator import FormattedContext
-from src.rxguard.rag.reranker import CrossEncoderReranker
-from src.rxguard.rag.retriever import InMemoryRetriever
-from src.rxguard.rag.service import RagService
+from src.labelsafe.core.config import Settings
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.core.contracts.medication import MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
+from src.labelsafe.rag.generator import FormattedContext
+from src.labelsafe.rag.reranker import CrossEncoderReranker
+from src.labelsafe.rag.retriever import InMemoryRetriever
+from src.labelsafe.rag.service import RagService
 
 SETTINGS = Settings(model_mode="fake", llm_backend="template")
 
@@ -147,7 +147,7 @@ async def test_uncited_generator_output_is_never_returned() -> None:
 
 
 async def test_retrieve_context_returns_nothing_when_the_gate_abstains() -> None:
-    from src.rxguard.rag.gate import GateAction
+    from src.labelsafe.rag.gate import GateAction
 
     meds = [MedicationConcept(rxcui="11289", canonical_name="Warfarin", term_type="IN")]
     passages, action = await RagService(InMemoryRetriever(), settings=SETTINGS).retrieve_context(

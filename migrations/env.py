@@ -1,4 +1,4 @@
-"""Alembic environment for the canonical RxGuard-RAG PostgreSQL schema (async engine)."""
+"""Alembic environment for the canonical LabelSafe PostgreSQL schema (async engine)."""
 
 import asyncio
 import os
@@ -8,7 +8,7 @@ from alembic import context
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from src.rxguard.database.models import Base
+from src.labelsafe.database.models import Base
 
 config = context.config
 if config.config_file_name is not None:
@@ -18,10 +18,10 @@ target_metadata = Base.metadata
 
 
 def database_url() -> str:
-    url = os.environ.get("RXGUARD_DATABASE_URL")
+    url = os.environ.get("LABELSAFE_DATABASE_URL")
     if url:
         return url
-    from src.rxguard.core.config import get_settings
+    from src.labelsafe.core.config import get_settings
 
     return get_settings().database_url
 

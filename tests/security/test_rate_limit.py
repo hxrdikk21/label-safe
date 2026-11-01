@@ -5,10 +5,10 @@ from collections.abc import Iterator
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api import dependencies
-from src.rxguard.api.main import app
-from src.rxguard.auth.rate_limit import MemoryCounters, RequestLimiter
-from src.rxguard.core.config import get_settings
+from src.labelsafe.api import dependencies
+from src.labelsafe.api.main import app
+from src.labelsafe.auth.rate_limit import MemoryCounters, RequestLimiter
+from src.labelsafe.core.config import get_settings
 
 MEDS = [{"rxcui": "11289", "canonical_name": "warfarin", "term_type": "IN"}]
 
@@ -52,7 +52,7 @@ async def test_gemini_is_withheld_once_the_daily_budget_is_spent(monkeypatch: py
 
 
 def test_no_gemini_key_means_no_chat_model() -> None:
-    from src.rxguard.core.config import Settings
-    from src.rxguard.rag.generator import get_chat_model
+    from src.labelsafe.core.config import Settings
+    from src.labelsafe.rag.generator import get_chat_model
 
     assert get_chat_model(Settings(llm_backend="gemini", gemini_api_key=None)) is None

@@ -7,12 +7,12 @@ from typing import Any
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api.dependencies import get_rag_service
-from src.rxguard.api.main import app
-from src.rxguard.core import config
-from src.rxguard.rag import service as service_module
-from src.rxguard.rag.retriever import InMemoryRetriever
-from src.rxguard.rag.service import RagService
+from src.labelsafe.api.dependencies import get_rag_service
+from src.labelsafe.api.main import app
+from src.labelsafe.core import config
+from src.labelsafe.rag import service as service_module
+from src.labelsafe.rag.retriever import InMemoryRetriever
+from src.labelsafe.rag.service import RagService
 
 WARFARIN = {"rxcui": "11289", "canonical_name": "Warfarin", "term_type": "IN"}
 IBUPROFEN = {"rxcui": "5640", "canonical_name": "Ibuprofen", "term_type": "IN"}

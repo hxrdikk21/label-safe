@@ -20,9 +20,9 @@ from pathlib import Path
 
 import httpx
 
-from src.rxguard.ingestion.rxnav import RxNavClient
-from src.rxguard.ingestion.seed_loader import DEFAULT_CATALOG_PATH, CuratedMedication, build_catalog
-from src.rxguard.knowledge.normalizer import MedicationNormalizer
+from src.labelsafe.ingestion.rxnav import RxNavClient
+from src.labelsafe.ingestion.seed_loader import DEFAULT_CATALOG_PATH, CuratedMedication, build_catalog
+from src.labelsafe.knowledge.normalizer import MedicationNormalizer
 
 CATALOG_VERSION = "2026.10.0"
 
@@ -761,7 +761,7 @@ async def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[1] if __doc__ else None)
     parser.add_argument("--output", type=Path, default=DEFAULT_CATALOG_PATH)
     args = parser.parse_args()
-    async with httpx.AsyncClient(timeout=30.0, headers={"User-Agent": "RxGuard-RAG seed builder"}) as http:
+    async with httpx.AsyncClient(timeout=30.0, headers={"User-Agent": "LabelSafe seed builder"}) as http:
         normalizer = MedicationNormalizer(RxNavClient(http), allow_approximate=False)
         catalog, skipped = await build_catalog(
             curated_medications(), normalizer, catalog_version=CATALOG_VERSION

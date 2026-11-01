@@ -1,0 +1,6 @@
+# Site URL also set in index.html (canonical, og:url) and sitemap.xml: change all three together.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://labelsafe.example.com/sitemap.xml

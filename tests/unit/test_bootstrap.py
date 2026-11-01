@@ -1,6 +1,6 @@
 """Production bootstrap: only the steps that haven't happened yet run on a redeploy."""
 
-from src.rxguard.ops.bootstrap import plan
+from src.labelsafe.ops.bootstrap import plan
 
 
 def test_first_boot_runs_everything() -> None:
@@ -18,7 +18,7 @@ def test_refresh_forces_ingest_and_rules() -> None:
 async def test_a_ddinter_outage_still_builds_label_rules(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     import httpx
 
-    from src.rxguard.ops import bootstrap
+    from src.labelsafe.ops import bootstrap
 
     calls: list[list[str]] = []
 

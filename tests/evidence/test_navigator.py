@@ -2,12 +2,12 @@
 
 import hashlib
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.core.contracts.medication import MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
-from src.rxguard.evidence.navigator import EvidenceNavigatorSerializer, select_passages
-from src.rxguard.safety.engine import SafetyEngine
-from src.rxguard.safety.models import DDIRule
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.core.contracts.medication import MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
+from src.labelsafe.evidence.navigator import EvidenceNavigatorSerializer, select_passages
+from src.labelsafe.safety.engine import SafetyEngine
+from src.labelsafe.safety.models import DDIRule
 
 
 def test_evidence_navigator_serializer():

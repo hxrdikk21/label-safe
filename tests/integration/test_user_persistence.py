@@ -14,11 +14,11 @@ from pathlib import Path
 
 import pytest
 
-from src.rxguard.auth.hasher import hash_password
-from src.rxguard.auth.store import SqlAuthStore, UserExistsError
-from src.rxguard.core.contracts.user_context import UserAllergyRecord, UserConditionRecord, UserContext
-from src.rxguard.database.connection import create_engine, create_session_factory
-from src.rxguard.users.profile_store import SqlProfileStore
+from src.labelsafe.auth.hasher import hash_password
+from src.labelsafe.auth.store import SqlAuthStore, UserExistsError
+from src.labelsafe.core.contracts.user_context import UserAllergyRecord, UserConditionRecord, UserContext
+from src.labelsafe.database.connection import create_engine, create_session_factory
+from src.labelsafe.users.profile_store import SqlProfileStore
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -37,7 +37,7 @@ pytestmark = pytest.mark.skipif(not _docker_available(), reason="Docker daemon n
 
 
 def alembic(url: str, *args: str) -> subprocess.CompletedProcess[str]:
-    env = {**os.environ, "RXGUARD_DATABASE_URL": url}
+    env = {**os.environ, "LABELSAFE_DATABASE_URL": url}
     return subprocess.run(  # noqa: S603 - fixed argv, test-only
         [sys.executable, "-m", "alembic", *args], cwd=REPO_ROOT, env=env, capture_output=True, text=True
     )
@@ -138,7 +138,7 @@ async def test_profile_store_round_trip_and_wipe(migrated_url: str) -> None:
 
 @pytest.mark.asyncio
 async def test_rate_limit_counters_are_shared_and_survive_restarts(migrated_url: str) -> None:
-    from src.rxguard.auth.rate_limit import LoginRateLimiter, RequestLimiter, SqlCounters
+    from src.labelsafe.auth.rate_limit import LoginRateLimiter, RequestLimiter, SqlCounters
 
     engine = create_engine(migrated_url)
     try:

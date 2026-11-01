@@ -1,13 +1,12 @@
+import Logo from './Logo';
 export default function Header({ route, user, onSignOut }) {
   const current = (path) => (route === path ? 'page' : undefined);
   return (
     <header className="header">
       <div className="container">
         <a className="brand" href="#/">
-          <span className="rx-mark" aria-hidden="true">
-            Rx
-          </span>
-          RxGuard
+          <Logo />
+          LabelSafe
         </a>
         <nav className="nav" aria-label="Main">
           <a href="#/check" aria-current={current('/check')}>

@@ -2,14 +2,14 @@
 Tests for personalized context-isolated clinical chatbot.
 """
 
-from src.rxguard.chatbot.orchestrator import ChatbotOrchestrator, ChatMessageRequest
-from src.rxguard.chatbot.prompt_manager import PromptManager
-from src.rxguard.core.contracts.medication import MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
-from src.rxguard.core.contracts.user_context import UserAllergyRecord, UserConditionRecord, UserContext
-from src.rxguard.rag.retriever import InMemoryRetriever
-from src.rxguard.rag.service import RagService
-from src.rxguard.safety.engine import SafetyEngine
+from src.labelsafe.chatbot.orchestrator import ChatbotOrchestrator, ChatMessageRequest
+from src.labelsafe.chatbot.prompt_manager import PromptManager
+from src.labelsafe.core.contracts.medication import MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
+from src.labelsafe.core.contracts.user_context import UserAllergyRecord, UserConditionRecord, UserContext
+from src.labelsafe.rag.retriever import InMemoryRetriever
+from src.labelsafe.rag.service import RagService
+from src.labelsafe.safety.engine import SafetyEngine
 
 
 def test_prompt_manager_sanitization_and_isolation():
@@ -79,7 +79,7 @@ async def test_chatbot_orchestrator_end_to_end_evaluation():
 
 async def test_follow_up_is_searched_with_the_earlier_question_and_skips_restating_findings():
     """A follow-up like 'why?' carries the earlier question to retrieval; findings are stated once."""
-    from src.rxguard.chatbot.orchestrator import ChatTurn, retrieval_question
+    from src.labelsafe.chatbot.orchestrator import ChatTurn, retrieval_question
 
     assert retrieval_question("Why?", []) == "Why?"
     history = [ChatTurn(query="a"), ChatTurn(query="amiodarone and digoxin?"), ChatTurn(query="bleeding?")]
@@ -131,7 +131,7 @@ class FakeRag:
 def _passage(pid: str, rxcui: str, text: str):  # type: ignore[no-untyped-def]
     import hashlib
 
-    from src.rxguard.core.contracts.evidence import EvidencePassage
+    from src.labelsafe.core.contracts.evidence import EvidencePassage
 
     return EvidencePassage(
         passage_id=pid,
@@ -165,7 +165,7 @@ async def test_greeting_gets_a_normal_reply_not_a_refusal():
 
 
 async def test_search_names_the_medicines_and_history_reaches_gemini():
-    from src.rxguard.chatbot.orchestrator import ChatTurn
+    from src.labelsafe.chatbot.orchestrator import ChatTurn
 
     rag, chat = FakeRag([]), FakeChat("Because both thin the blood.")
     await ChatbotOrchestrator(SafetyEngine(), rag, chat).generate_response(  # type: ignore[arg-type]

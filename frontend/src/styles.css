@@ -1,5 +1,15 @@
-/* RxGuard "pharmacy label" design system.
+/* LabelSafe "pharmacy label" design system.
    Colour carries information: sticker colours = interaction type, red/ink = severity. */
+
+/* Self-hosted (SIL OFL), latin subset: no render-blocking third-party request, no Google IP logging. */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+
 :root {
   --page: #f4f7f6;
   --label: #ffffff;
@@ -146,17 +156,9 @@ a {
   text-decoration: none;
 }
 
-.rx-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: var(--radius-label);
-  background: var(--ink);
-  color: var(--label);
-  font-size: 15px;
-  font-weight: 800;
-  font-style: italic;
+.logo {
+  display: block;
+  flex: none;
 }
 
 .nav {
@@ -184,17 +186,140 @@ a {
 
 .footer {
   border-top: 1px solid var(--rule-strong);
-  padding: 24px 0;
-  font-size: 14px;
-  line-height: 22px;
+  padding: 40px 0 24px;
+  font-size: 15px;
+  line-height: 24px;
   color: var(--slate);
 }
 
-.footer .container {
+.footer-grid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 720px) {
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  }
+}
+
+.footer-brand {
+  display: grid;
+  gap: 12px;
+  max-width: 28em;
+}
+
+.footer-title {
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 44px-tall links on touch screens; inline links in sentences keep their natural size. */
+.footer nav a {
+  display: inline-block;
+  padding: 10px 0;
+}
+
+@media (min-width: 720px) {
+  .footer nav a {
+    padding: 0;
+  }
+}
+
+.footer-bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px 24px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/* Legal pages */
+.legal {
+  display: grid;
+  gap: 14px;
+  max-width: 46em;
+  padding: 28px 24px;
+}
+
+@media (min-width: 720px) {
+  .legal {
+    padding: 40px 48px;
+  }
+}
+
+.legal h2 {
+  margin-top: 14px;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.legal ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+/* 404 */
+.not-found {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  min-height: 60vh;
+  align-content: center;
+}
+
+.not-found h1 {
+  font-size: clamp(32px, 4.6vw, 48px);
+  line-height: 1.05;
+}
+
+/* Sign-up honeypot: off-screen rather than display:none, which some bots skip. */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Storage notice */
+.cookie-notice {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  max-width: 560px;
+  padding: 16px 20px;
+  box-shadow: var(--paper);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.cookie-notice p {
+  flex: 1 1 260px;
 }
 
 /* Buttons */
@@ -614,20 +739,22 @@ button.link {
   border-top: 1px solid var(--rule);
 }
 
-/* Only dim inactive steps beside the sticky stage (desktop). */
+/* Mark the active step beside the sticky stage (desktop) by colour: fading with opacity fails AA contrast. */
 @media (min-width: 960px) {
-  .step {
-    opacity: 0.45;
-    transition: opacity 0.3s;
+  .step h3,
+  .step-n {
+    color: var(--slate);
+    transition: color 0.3s;
+  }
+
+  .step.is-active h3,
+  .step.is-active .step-n {
+    color: var(--ink);
   }
 }
 
 .step:last-child {
   border-bottom: 1px solid var(--rule);
-}
-
-.step.is-active {
-  opacity: 1;
 }
 
 .step-n {
@@ -785,13 +912,6 @@ button.link {
 .pad h2 {
   font-size: 32px;
   line-height: 38px;
-}
-
-.pad-rx {
-  font-size: 48px;
-  font-weight: 800;
-  font-style: italic;
-  line-height: 1;
 }
 
 /* ---------- Check ---------- */

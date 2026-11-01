@@ -1,20 +1,20 @@
 """
-Contract Test Suite for RxGuard-RAG Canonical Contracts.
+Contract Test Suite for LabelSafe Canonical Contracts.
 Tests validation, serialization, deserialization, immutability, and schema compliance.
 """
 
 import pytest
 from pydantic import ValidationError
 
-from src.rxguard.core.config import get_settings
-from src.rxguard.core.contracts.document import SourceDocument
-from src.rxguard.core.contracts.evidence import EvidencePassage, SourceEvidence
-from src.rxguard.core.contracts.medication import IngredientReference, MedicationConcept
-from src.rxguard.core.contracts.product import DrugProduct
-from src.rxguard.core.contracts.rag_response import RAGResponse, VerifiedCitation
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
-from src.rxguard.core.contracts.safety_evidence import SafetyEvidence
-from src.rxguard.core.contracts.user_context import (
+from src.labelsafe.core.config import get_settings
+from src.labelsafe.core.contracts.document import SourceDocument
+from src.labelsafe.core.contracts.evidence import EvidencePassage, SourceEvidence
+from src.labelsafe.core.contracts.medication import IngredientReference, MedicationConcept
+from src.labelsafe.core.contracts.product import DrugProduct
+from src.labelsafe.core.contracts.rag_response import RAGResponse, VerifiedCitation
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus, SafetyFinding
+from src.labelsafe.core.contracts.safety_evidence import SafetyEvidence
+from src.labelsafe.core.contracts.user_context import (
     UserAllergyRecord,
     UserConditionRecord,
     UserContext,
@@ -26,7 +26,7 @@ class TestConfigSettings:
 
     def test_default_settings(self):
         settings = get_settings()
-        assert settings.app_name == "RxGuard-RAG"
+        assert settings.app_name == "LabelSafe"
         assert settings.app_version == "2.0.0"
         assert "postgresql" in type(settings).model_fields["database_url"].default
         assert settings.jwt_algorithm == "HS256"

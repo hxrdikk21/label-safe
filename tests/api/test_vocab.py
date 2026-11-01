@@ -5,8 +5,8 @@ import pytest
 import respx
 from starlette.testclient import TestClient
 
-from src.rxguard.api.main import app
-from src.rxguard.api.routes import vocab
+from src.labelsafe.api.main import app
+from src.labelsafe.api.routes import vocab
 
 client = TestClient(app)
 

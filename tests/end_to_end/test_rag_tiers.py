@@ -5,8 +5,8 @@ Validates latency, retrieval precision/recall, citation verification, and safe a
 
 import pytest
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.evaluation.rag_benchmarks import (
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.evaluation.rag_benchmarks import (
     RAG_TIER,
     VECTOR_TIER,
     BenchmarkScenario,

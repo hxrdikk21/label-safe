@@ -268,7 +268,7 @@ export default function Check({ user }) {
 
               {result.unruled.length > 0 && (
                 <p className="hint warning">
-                  RxGuard has no rules yet for {result.unruled.map((m) => title(m.concept.canonical_name)).join(', ')}
+                  LabelSafe has no rules yet for {result.unruled.map((m) => title(m.concept.canonical_name)).join(', ')}
                   {result.unruled.length === 1
                     ? ', so it was not checked. No finding for it does not mean it is safe.'
                     : ', so they were not checked. No finding for them does not mean they are safe.'}
@@ -276,7 +276,7 @@ export default function Check({ user }) {
               )}
               {findings.length === 0 && (
                 <p className="sheet empty">
-                  Nothing was flagged in the sources RxGuard checks. That does not mean the combination is safe.
+                  Nothing was flagged in the sources LabelSafe checks. That does not mean the combination is safe.
                 </p>
               )}
               {findings.map((f) => (

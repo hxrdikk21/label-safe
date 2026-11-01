@@ -1,5 +1,5 @@
 [project]
-name = "rxguard-rag"
+name = "labelsafe"
 version = "2.0.0"
 description = "Evidence-grounded medication safety intelligence platform"
 requires-python = ">=3.11"
@@ -16,16 +16,14 @@ dependencies = [
     "argon2-cffi>=23.1",
     "pyjwt>=2.8",
     "pyotp>=2.9",
+    "google-genai>=2.33",
 ]
 
 [project.optional-dependencies]
-# Real models for MODEL_MODE=real; tests and CI run MODEL_MODE=fake.
+# Real models for MODEL_MODE=real (local only: too large for Vercel); tests, CI and Vercel run MODEL_MODE=fake.
 ml = [
     "sentence-transformers>=3.0",
     "torch>=2.2",
-]
-llm = [
-    "google-genai>=2.33",
 ]
 dev = [
     "pytest>=8.0",
@@ -39,15 +37,13 @@ dev = [
     "types-defusedxml>=0.7",
     "asyncpg-stubs>=0.29",
     "testcontainers[postgres]>=4.0",
-    # Gemini narrative tests use the SDK types with a fake client (no network).
-    "google-genai>=2.33",
 ]
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
-# Code imports as ``src.rxguard...`` (namespace package rooted at the repo).
+# Code imports as ``src.labelsafe...`` (namespace package rooted at the repo).
 [tool.setuptools.packages.find]
 include = ["src*"]
 namespaces = true
@@ -60,7 +56,7 @@ pythonpath = ["."]
 
 [tool.coverage.run]
 branch = true
-source = ["src/rxguard"]
+source = ["src/labelsafe"]
 
 [tool.coverage.report]
 fail_under = 85
@@ -81,13 +77,13 @@ ignore = ["RUF001", "RUF002", "RUF003", "UP042"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "S105", "S106"]
 # FastAPI's dependency-injection idiom: Depends()/Query() in argument defaults.
-"src/rxguard/api/**" = ["B008"]
+"src/labelsafe/api/**" = ["B008"]
 # The system prompt is kept verbatim; wrapping it would change what the model sees.
-"src/rxguard/chatbot/prompt_manager.py" = ["E501"]
+"src/labelsafe/chatbot/prompt_manager.py" = ["E501"]
 # Embedded web asset (HTML/CSS/JS) for the Evidence Navigator page.
-"src/rxguard/evidence/navigator_page.py" = ["E501"]
+"src/labelsafe/evidence/navigator_page.py" = ["E501"]
 # Embedded HTML email template.
-"src/rxguard/auth/email_service.py" = ["E501"]
+"src/labelsafe/auth/email_service.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.11"
@@ -98,5 +94,5 @@ plugins = ["pydantic.mypy"]
 
 # Optional model backends are imported lazily and may be absent.
 [[tool.mypy.overrides]]
-module = ["sentence_transformers.*", "torch.*", "google.genai.*"]
+module = ["sentence_transformers.*", "torch.*"]
 ignore_missing_imports = true

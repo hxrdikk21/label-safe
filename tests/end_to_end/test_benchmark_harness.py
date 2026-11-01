@@ -5,8 +5,8 @@ Executes the full 50-scenario benchmark suite and tests end-to-end integration w
 
 import pytest
 
-from src.rxguard.evaluation.harness import BenchmarkHarness
-from src.rxguard.evaluation.metrics import calculate_metrics
+from src.labelsafe.evaluation.harness import BenchmarkHarness
+from src.labelsafe.evaluation.metrics import calculate_metrics
 
 
 class TestEndToEndBenchmarkSuite:

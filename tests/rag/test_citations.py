@@ -1,6 +1,6 @@
 """Deterministic citation check: only sentences citing a retrieved passage survive."""
 
-from src.rxguard.rag.citations import check_citations
+from src.labelsafe.rag.citations import check_citations
 
 RETRIEVED = {"P-1", "P-2"}
 

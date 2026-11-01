@@ -8,8 +8,8 @@ import httpx
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from src.rxguard.database.connection import create_all, create_engine, create_session_factory
-from src.rxguard.ingestion.http import RetryPolicy
+from src.labelsafe.database.connection import create_all, create_engine, create_session_factory
+from src.labelsafe.ingestion.http import RetryPolicy
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -65,7 +65,7 @@ async def http_client() -> AsyncIterator[httpx.AsyncClient]:
 
 @pytest.fixture
 async def session_factory(tmp_path: Path) -> AsyncIterator[async_sessionmaker[AsyncSession]]:
-    engine = create_engine(f"sqlite+aiosqlite:///{tmp_path / 'rxguard.db'}")
+    engine = create_engine(f"sqlite+aiosqlite:///{tmp_path / 'labelsafe.db'}")
     await create_all(engine)
     try:
         yield create_session_factory(engine)

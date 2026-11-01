@@ -2,8 +2,8 @@
 
 import hashlib
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.rag.retriever import InMemoryRetriever, rrf
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.rag.retriever import InMemoryRetriever, rrf
 
 
 def passage(pid: str, rxcui: str, content: str) -> EvidencePassage:

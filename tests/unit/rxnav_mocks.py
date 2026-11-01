@@ -3,7 +3,7 @@
 import httpx
 import respx
 
-from src.rxguard.ingestion.rxnav import DEFAULT_BASE_URL as BASE
+from src.labelsafe.ingestion.rxnav import DEFAULT_BASE_URL as BASE
 
 
 def mock_name(name: str, rxcuis: list[str]) -> respx.Route:

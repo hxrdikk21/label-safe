@@ -4,8 +4,8 @@ import httpx
 import pytest
 import respx
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.ingestion.dailymed import (
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.ingestion.dailymed import (
     DEFAULT_BASE_URL,
     DailyMedClient,
     build_contextual_header,
@@ -13,9 +13,9 @@ from src.rxguard.ingestion.dailymed import (
     pack_with_header,
     parse_spl,
 )
-from src.rxguard.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
-from src.rxguard.ingestion.http import RetryPolicy
-from src.rxguard.knowledge.loinc_taxonomy import (
+from src.labelsafe.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
+from src.labelsafe.ingestion.http import RetryPolicy
+from src.labelsafe.knowledge.loinc_taxonomy import (
     BOXED_WARNING,
     CONTRAINDICATIONS,
     DRUG_INTERACTIONS,

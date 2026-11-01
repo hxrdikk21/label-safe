@@ -5,7 +5,7 @@ Covers health, auth, safety, evidence, and chat endpoints.
 
 from starlette.testclient import TestClient
 
-from src.rxguard.api.main import app
+from src.labelsafe.api.main import app
 
 client = TestClient(app)
 
@@ -128,7 +128,7 @@ def test_chat_message_endpoint():
 
 
 def test_readiness_fails_when_database_is_unreachable(monkeypatch) -> None:
-    from src.rxguard.api import dependencies
+    from src.labelsafe.api import dependencies
 
     dependencies.get_session_factory.cache_clear()
     monkeypatch.setenv("DATABASE_URL", "postgresql+asyncpg://nobody:nothing@127.0.0.1:1/none")

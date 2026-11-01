@@ -7,8 +7,8 @@ from datetime import timedelta
 
 import pytest
 
-from src.rxguard.auth.hasher import hash_password, needs_rehash, verify_password
-from src.rxguard.auth.jwt import (
+from src.labelsafe.auth.hasher import hash_password, needs_rehash, verify_password
+from src.labelsafe.auth.jwt import (
     AuthError,
     create_access_token,
     create_refresh_token,

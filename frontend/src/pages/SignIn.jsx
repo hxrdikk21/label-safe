@@ -7,6 +7,7 @@ export default function SignIn({ onSignedIn }) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot: humans never see it, bots fill it
   const [code, setCode] = useState('');
   const [needsCode, setNeedsCode] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -14,7 +15,7 @@ export default function SignIn({ onSignedIn }) {
 
   const finish = async (tokens) => {
     setStoredToken(tokens.access_token);
-    localStorage.setItem('rxguard_refresh_token', tokens.refresh_token);
+    localStorage.setItem('labelsafe_refresh_token', tokens.refresh_token);
     const me = await authApi.me();
     setStoredUser(me);
     onSignedIn(me);
@@ -31,6 +32,7 @@ export default function SignIn({ onSignedIn }) {
           password,
           email: email || null,
           full_name: fullName || null,
+          website: website || null,
         });
       }
       const tokens = await authApi.login({ username, password, totp_code: needsCode ? code : null });
@@ -96,6 +98,18 @@ export default function SignIn({ onSignedIn }) {
             />
           </div>
         )}
+        {mode === 'register' && (
+          <div className="hp" aria-hidden="true">
+            <label htmlFor="website">Website</label>
+            <input
+              id="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
+        )}
         <div className="field">
           <label htmlFor="password">Password</label>
           <input
@@ -134,7 +148,7 @@ export default function SignIn({ onSignedIn }) {
           {busy ? 'Please wait…' : mode === 'signin' ? 'Sign in' : 'Create account'}
         </button>
         <p className="hint">
-          {mode === 'signin' ? 'New to RxGuard?' : 'Already have an account?'}{' '}
+          {mode === 'signin' ? 'New to LabelSafe?' : 'Already have an account?'}{' '}
           <button type="button" className="link text-link" onClick={switchMode}>
             {mode === 'signin' ? 'Create an account' : 'Sign in'}
           </button>

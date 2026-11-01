@@ -5,12 +5,12 @@ Tests context isolation between users, access denial on cross-user queries, and 
 
 import pytest
 
-from src.rxguard.core.contracts.user_context import (
+from src.labelsafe.core.contracts.user_context import (
     UserAllergyRecord,
     UserConditionRecord,
 )
-from src.rxguard.users.context_guard import AccessDeniedError, ContextGuard
-from src.rxguard.users.service import UserService
+from src.labelsafe.users.context_guard import AccessDeniedError, ContextGuard
+from src.labelsafe.users.service import UserService
 
 
 class TestUserContextIsolation:

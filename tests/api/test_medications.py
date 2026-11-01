@@ -2,7 +2,7 @@
 
 from starlette.testclient import TestClient
 
-from src.rxguard.api.main import app
+from src.labelsafe.api.main import app
 
 client = TestClient(app)
 

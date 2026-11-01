@@ -4,10 +4,10 @@ import httpx
 import pytest
 import respx
 
-from src.rxguard.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
-from src.rxguard.ingestion.http import RetryPolicy
-from src.rxguard.ingestion.rxnav import DEFAULT_BASE_URL, RxConcept, RxNavClient
-from src.rxguard.knowledge.normalizer import (
+from src.labelsafe.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
+from src.labelsafe.ingestion.http import RetryPolicy
+from src.labelsafe.ingestion.rxnav import DEFAULT_BASE_URL, RxConcept, RxNavClient
+from src.labelsafe.knowledge.normalizer import (
     MedicationNormalizer,
     MedicationNotFoundError,
     marketed_salt_forms,

@@ -1,17 +1,17 @@
-// API client for the RxGuard backend (FastAPI, proxied at /api by Vite in development).
+// API client for the LabelSafe backend (FastAPI, proxied at /api by Vite in development).
 
 const API_BASE = '/api/v1';
 
-export const getStoredToken = () => localStorage.getItem('rxguard_access_token');
-export const setStoredToken = (token) => localStorage.setItem('rxguard_access_token', token);
+export const getStoredToken = () => localStorage.getItem('labelsafe_access_token');
+export const setStoredToken = (token) => localStorage.setItem('labelsafe_access_token', token);
 export const removeStoredToken = () => {
-  localStorage.removeItem('rxguard_access_token');
-  localStorage.removeItem('rxguard_refresh_token');
-  localStorage.removeItem('rxguard_user');
+  localStorage.removeItem('labelsafe_access_token');
+  localStorage.removeItem('labelsafe_refresh_token');
+  localStorage.removeItem('labelsafe_user');
 };
 
 export const getStoredUser = () => {
-  const u = localStorage.getItem('rxguard_user');
+  const u = localStorage.getItem('labelsafe_user');
   try {
     return u ? JSON.parse(u) : null;
   } catch {
@@ -20,13 +20,13 @@ export const getStoredUser = () => {
 };
 
 export const setStoredUser = (user) => {
-  localStorage.setItem('rxguard_user', JSON.stringify(user));
+  localStorage.setItem('labelsafe_user', JSON.stringify(user));
 };
 
 // One refresh attempt per expired access token; concurrent 401s share it.
 let refreshing = null;
 async function refreshTokens() {
-  const refreshToken = localStorage.getItem('rxguard_refresh_token');
+  const refreshToken = localStorage.getItem('labelsafe_refresh_token');
   if (!refreshToken) return false;
   refreshing ??= fetch(`${API_BASE}/auth/refresh`, {
     method: 'POST',
@@ -37,7 +37,7 @@ async function refreshTokens() {
       if (!res.ok) return false;
       const tokens = await res.json();
       setStoredToken(tokens.access_token);
-      localStorage.setItem('rxguard_refresh_token', tokens.refresh_token);
+      localStorage.setItem('labelsafe_refresh_token', tokens.refresh_token);
       return true;
     })
     .catch(() => false)

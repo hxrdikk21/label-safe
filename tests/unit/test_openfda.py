@@ -7,9 +7,9 @@ import httpx
 import pytest
 import respx
 
-from src.rxguard.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
-from src.rxguard.ingestion.http import RetryPolicy
-from src.rxguard.ingestion.openfda import (
+from src.labelsafe.ingestion.errors import UpstreamNotFoundError, UpstreamUnavailableError
+from src.labelsafe.ingestion.http import RetryPolicy
+from src.labelsafe.ingestion.openfda import (
     DEFAULT_BASE_URL,
     LabelDeduplicator,
     OpenFDAClient,
@@ -17,7 +17,7 @@ from src.rxguard.ingestion.openfda import (
     label_fingerprint,
     parse_openfda_label,
 )
-from src.rxguard.knowledge.loinc_taxonomy import CONTRAINDICATIONS, DRUG_INTERACTIONS, INACTIVE_INGREDIENTS
+from src.labelsafe.knowledge.loinc_taxonomy import CONTRAINDICATIONS, DRUG_INTERACTIONS, INACTIVE_INGREDIENTS
 from tests.unit.conftest import FakeClock
 
 

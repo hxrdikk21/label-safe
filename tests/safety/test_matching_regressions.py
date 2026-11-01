@@ -2,11 +2,11 @@
 
 import pytest
 
-from src.rxguard.core.contracts.medication import IngredientReference, MedicationConcept
-from src.rxguard.core.contracts.safety import FindingSeverity, FindingStatus
-from src.rxguard.core.contracts.user_context import UserAllergyRecord, UserConditionRecord, UserContext
-from src.rxguard.safety.engine import SafetyEngine
-from src.rxguard.safety.rules_db import SafetyRulesRepository, get_safety_rules_repo, mentions
+from src.labelsafe.core.contracts.medication import IngredientReference, MedicationConcept
+from src.labelsafe.core.contracts.safety import FindingSeverity, FindingStatus
+from src.labelsafe.core.contracts.user_context import UserAllergyRecord, UserConditionRecord, UserContext
+from src.labelsafe.safety.engine import SafetyEngine
+from src.labelsafe.safety.rules_db import SafetyRulesRepository, get_safety_rules_repo, mentions
 
 ENGINE = SafetyEngine()
 

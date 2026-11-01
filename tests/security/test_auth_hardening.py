@@ -11,12 +11,12 @@ import pyotp
 import pytest
 from starlette.testclient import TestClient
 
-from src.rxguard.api import dependencies
-from src.rxguard.api.main import app
-from src.rxguard.auth.rate_limit import LoginRateLimiter
-from src.rxguard.auth.store import InMemoryAuthStore
-from src.rxguard.users.profile_store import InMemoryProfileStore
-from src.rxguard.users.service import UserService
+from src.labelsafe.api import dependencies
+from src.labelsafe.api.main import app
+from src.labelsafe.auth.rate_limit import LoginRateLimiter
+from src.labelsafe.auth.store import InMemoryAuthStore
+from src.labelsafe.users.profile_store import InMemoryProfileStore
+from src.labelsafe.users.service import UserService
 
 PASSWORD = "CorrectHorseBattery9!"
 
@@ -47,6 +47,13 @@ def register_and_login(client: TestClient, username: str = "alice") -> dict[str,
 
 def bearer(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}
+
+
+def test_registration_honeypot_rejects_bots(client: TestClient) -> None:
+    bot = {"username": "spambot", "password": PASSWORD, "website": "http://spam.example"}
+    assert client.post("/api/v1/auth/register", json=bot).status_code == 422
+    human = {"username": "human", "password": PASSWORD, "website": None}
+    assert client.post("/api/v1/auth/register", json=human).status_code == 201
 
 
 def test_self_registration_cannot_grant_admin(client: TestClient) -> None:

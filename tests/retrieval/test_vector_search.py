@@ -3,9 +3,9 @@ Tests for Dense Vector Embedding and pgvector client.
 Validates L2 normalization, cosine similarity geometry, metadata filtering, and HNSW DDL generation.
 """
 
-from src.rxguard.core.contracts.evidence import EvidencePassage
-from src.rxguard.vector_store.embeddings import EmbeddingEngine
-from src.rxguard.vector_store.pgvector_client import VectorStoreClient
+from src.labelsafe.core.contracts.evidence import EvidencePassage
+from src.labelsafe.vector_store.embeddings import EmbeddingEngine
+from src.labelsafe.vector_store.pgvector_client import VectorStoreClient
 
 
 def test_embedding_normalization_and_dimension():
