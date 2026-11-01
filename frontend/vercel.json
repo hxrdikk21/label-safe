@@ -1,9 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://labelsafe-api.onrender.com/api/:path*" },
-    { "source": "/health", "destination": "https://labelsafe-api.onrender.com/health" },
-    { "source": "/navigator", "destination": "https://labelsafe-api.onrender.com/navigator" }
+    {
+      "source": "/api/:path*",
+      "destination": "https://labelsafe-api-n3fp.onrender.com/api/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://labelsafe-api-n3fp.onrender.com/health"
+    },
+    {
+      "source": "/navigator",
+      "destination": "https://labelsafe-api-n3fp.onrender.com/navigator"
+    }
   ],
   "headers": [
     {
@@ -15,7 +24,10 @@
         },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "same-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
         { "key": "X-Frame-Options", "value": "DENY" }
       ]
     },
@@ -25,7 +37,12 @@
     },
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
