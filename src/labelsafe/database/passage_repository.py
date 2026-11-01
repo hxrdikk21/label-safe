@@ -134,3 +134,14 @@ class PassageRepository:
         async with self._session_factory() as session:
             record = await session.get(EvidencePassageRecord, uuid.UUID(passage_id))
             return record.to_contract() if record is not None else None
+
+    async def get_passages(self, passage_ids: list[str]) -> list[EvidencePassage]:
+        """Several passages in one query (one round trip, which matters for a remote database);
+        ids that no longer exist are skipped."""
+        if not passage_ids:
+            return []
+        query = select(EvidencePassageRecord).where(
+            EvidencePassageRecord.passage_id.in_([uuid.UUID(pid) for pid in passage_ids])
+        )
+        async with self._session_factory() as session:
+            return [record.to_contract() for record in await session.scalars(query)]

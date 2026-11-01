@@ -1,17 +1,20 @@
-# Deploying LabelSafe (free: Vercel + Neon)
+# Deploying LabelSafe (free: Vercel + Render + Neon)
 
-This guide takes LabelSafe from your laptop to a public `https://…vercel.app` address. It costs nothing on the free tiers and takes about 30 minutes.
+> Want a click-by-click checklist instead? Follow [DEPLOY_STEPS.md](DEPLOY_STEPS.md). This page explains the setup and covers troubleshooting.
+
+LabelSafe runs in three free pieces:
 
 ```
-                       ┌──────────────── Vercel project ────────────────┐
-  visitor ──HTTPS──►   │  web service  (React site, served from the CDN) │
-                       │  api service  (FastAPI, /api/*, /navigator)     │ ──► Neon Postgres (pgvector)
-                       └─────────────────────────────────────────────────┘          ▲
-                                                     Gemini API ◄── api              │
-                                     your laptop: make neon-copy (one time) ──────────┘
+  visitor ──HTTPS──► Vercel  (website: React, from frontend/)
+                       │  /api/*, /health, /navigator are forwarded ──►  Render  (API: FastAPI, render.yaml)
+                       │                                                    │
+                       └── the browser only ever talks to Vercel            ├──► Neon   (Postgres + pgvector)
+                                                                            └──► Gemini (written explanations)
 ```
 
-**Lite mode:** on Vercel the app runs with `MODEL_MODE=fake`. The two torch ML models are too large for Vercel's serverless functions, so label search uses a built-in lightweight embedder and word-overlap reranker. Safety findings are exactly the same (they come from rules), and Gemini still writes the explanations.
+Because Vercel forwards the API calls, the browser sees one address, so no CORS setup is needed.
+
+**Lite mode:** the API runs with `MODEL_MODE=fake`. The torch ML models don't fit in Render's free 512 MB instance, so label search uses a built-in lightweight embedder and word-overlap reranker. Safety findings are identical (they come from rules), and Gemini still writes the explanations.
 
 ---
 
@@ -19,108 +22,94 @@ This guide takes LabelSafe from your laptop to a public `https://…vercel.app` 
 
 | Thing | Notes |
 |---|---|
-| GitHub account | The repo: `github.com/hxrdikk21/label-safe` |
-| Vercel account | Free **Hobby** plan. Sign up at vercel.com **with your GitHub account**. |
-| Gemini API key | Free at <https://aistudio.google.com/apikey> |
-| Your local LabelSafe database | Already set up if `make start` has worked on your laptop. Docker Desktop must be running. |
-
-The Neon database is created from inside Vercel in step 3, so you don't need a separate Neon sign-up.
+| GitHub repo | `github.com/hxrdikk21/label-safe`, with your latest code pushed (step 2) |
+| Vercel account | Free Hobby plan, signed in with GitHub. You already have the project `label-safe`. |
+| Render account | Free. Sign up at <https://render.com> **with your GitHub account**. |
+| Neon database | Free. You already created it and copied your data in (step 1 checks it). |
+| Gemini API key | <https://aistudio.google.com/apikey> |
 
 ---
 
-## 1. Push the code to GitHub
+## 1. Database (Neon): check it's ready
+
+You've already run `make neon-copy`. Make sure the lite-mode re-embed finished. Running this again is safe: it only processes passages that still need it, and prints `re-embedded 0 …` when everything is done:
 
 ```bash
-cd label-safe
-git status                      # .env must NOT be listed (it holds your secrets; it's git-ignored)
+docker compose up -d --wait
+DATABASE_URL='<your Neon connection string>' MODEL_MODE=fake .venv/bin/python -m src.labelsafe.ingestion.ingest_labels --limit 0
+```
+
+Use Neon's **direct** connection string (host without `-pooler`). You'll find it in the Neon console under **Connect**, or in Vercel → Storage → your database → `DATABASE_URL_UNPOOLED`. It looks like
+`postgresql://neondb_owner:…@ep-….ap-southeast-1.aws.neon.tech/neondb?sslmode=require`.
+
+Starting from scratch instead? Create a free project at <https://neon.tech> (region **Singapore**), then run `make neon-copy NEON_URL='<connection string>'` once.
+
+---
+
+## 2. Push the code
+
+```bash
 git add -A
-git commit -m "Prepare LabelSafe for Vercel"
+git commit -m "Deploy: Vercel frontend + Render API"
 git push origin main
 ```
 
-Check that `data/generated/fda_label_rules.json` is in the commit. The app refuses to screen without its rulebook.
-
-```bash
-git ls-files data/generated     # should print data/generated/fda_label_rules.json
-```
+Check that `data/generated/fda_label_rules.json` is committed (`git ls-files data/generated`). The API refuses to screen without its rulebook.
 
 ---
 
-## 2. Create the Vercel project
+## 3. Backend on Render (about 5 minutes)
 
-1. Go to <https://vercel.com/new> and **Import** the `label-safe` repository.
-2. Leave **Root Directory** as `./` and leave the build settings alone. `vercel.json` defines everything: a `web` service (the React site in `frontend/`) and an `api` service (FastAPI).
-3. Open **Environment Variables** and add:
+1. In Render, click **New → Blueprint** and connect the `label-safe` repository. Render finds `render.yaml` and shows one service, **labelsafe-api** (free, Singapore).
+2. It asks for two values:
+   - `DATABASE_URL`: your Neon **direct** connection string from step 1
+   - `GEMINI_API_KEY`: your Gemini key
 
-| Name | Value |
-|---|---|
-| `JWT_SECRET_KEY` | A long random string. Generate one with `openssl rand -hex 32`. **Required**: the API won't start without it. |
-| `APP_ENV` | `production` |
-| `MODEL_MODE` | `fake` (lite mode; **required**, since torch isn't installed on Vercel) |
-| `LLM_BACKEND` | `gemini` |
-| `GEMINI_API_KEY` | Your Gemini key |
-| `GEMINI_MODEL` | `gemini-3.6-flash` |
-| `DATABASE_POOL_SIZE` | `2` |
-| `DATABASE_MAX_OVERFLOW` | `3` |
+   Everything else is preset in `render.yaml`. Render generates `JWT_SECRET_KEY` itself.
+3. Click **Apply**. The first build takes 3–5 minutes (it installs dependencies with `uv`).
+4. When it shows **Live**, open `https://labelsafe-api.onrender.com/health`. You should see `{"status":"HEALTHY", …}`. Then try `/api/v1/ready`, which should report the database and rules as ready.
 
-4. Click **Deploy**. The site loads, but checks fail until the database exists. That's expected; it's fixed in the next two steps.
+> **Is your service's URL different?** Render adds a suffix if `labelsafe-api` is taken (e.g. `labelsafe-api-x1y2.onrender.com`). If so, put your URL in the **three** `destination` lines of `frontend/vercel.json`, then commit and push.
 
 ---
 
-## 3. Add a free Neon Postgres database
+## 4. Frontend on Vercel
 
-1. In your Vercel project, open the **Storage** tab, click **Create Database**, and choose **Neon** (Serverless Postgres).
-2. Pick the **Free** plan and the region closest to your functions (the default `Washington, D.C. (iad1)` is fine). Create it.
-3. When asked, **connect it to the `label-safe` project** for all environments. Vercel then adds `DATABASE_URL` and related variables to the project automatically. LabelSafe converts Neon's URL format by itself, so there's nothing to edit.
+Your existing Vercel project currently tries to build the API too. Point it at the website only:
 
----
+1. In Vercel, open the `label-safe` project → **Settings → Build and Deployment** (or **General**) → **Root Directory**. Set it to `frontend` and save. The Framework Preset becomes **Vite** automatically.
+2. Under **Settings → Environment Variables**, delete the old API variables (`JWT_SECRET_KEY`, `GEMINI_API_KEY`, `MODEL_MODE` and so on). The website needs none, and the API's secrets now live on Render. You can leave the Neon integration connected; it's harmless.
+3. Go to **Deployments → ⋯ → Redeploy**, or just push a commit.
 
-## 4. Copy your data to Neon (one command)
-
-This copies your local database to Neon: the 500 drugs, 4,292 FDA label passages and the schema. It then rewrites the embeddings for lite mode, so search vectors match on Vercel.
-
-1. Get Neon's **direct** connection string. In Vercel, go to **Storage → your Neon database → Quickstart / .env.local** and copy the value of **`DATABASE_URL_UNPOOLED`**. It looks like:
-   `postgresql://neondb_owner:xxxx@ep-something-123456.us-east-1.aws.neon.tech/neondb?sslmode=require`
-2. On your laptop, with Docker running:
-
-```bash
-docker compose up -d --wait     # your local Postgres
-make neon-copy NEON_URL='postgresql://neondb_owner:xxxx@ep-something-123456.us-east-1.aws.neon.tech/neondb?sslmode=require'
-```
-
-It takes a minute or two and ends with `re-embedded 4292 older passages with labelsafe-hashed-v1`.
-
-> **Warning:** `make neon-copy` **replaces** everything in the Neon database with your local copy, **including user accounts**. Run it once, before people sign up. To refresh labels later, see step 8.
+(Creating a fresh project instead: <https://vercel.com/new> → import the repo → set **Root Directory** to `frontend` → Deploy.)
 
 ---
 
-## 5. Redeploy
+## 5. Check it works
 
-The API only reads new environment variables on a fresh deployment. In Vercel, go to **Deployments**, open the **⋯** menu on the latest deployment, and choose **Redeploy**.
-
----
-
-## 6. Check it works
-
-Replace `<your-app>` with your project's address (shown on the Vercel dashboard):
+Open `https://label-safe.vercel.app` (or your project's address):
 
 | Check | Expected |
 |---|---|
-| `https://<your-app>.vercel.app` | The LabelSafe homepage, with the medicine counts filled in |
-| `https://<your-app>.vercel.app/health` | `{"status":"HEALTHY", …}` |
-| `https://<your-app>.vercel.app/api/v1/ready` | Database and rules reported as ready |
-| On the site: **Start a check** with warfarin + ibuprofen | A **Contraindicated** drug–drug finding, with an explanation citing the FDA label |
-| Create an account and sign in | Works, and your profile saves |
+| Homepage | Loads, with the medicine counts filled in. Those come from the API, so this proves the forwarding works. |
+| `https://label-safe.vercel.app/health` | `{"status":"HEALTHY", …}` (served by Render through Vercel) |
+| **Start a check** → warfarin + ibuprofen | A **Contraindicated** drug–drug finding, with an explanation citing the FDA label |
+| Create an account, sign in, save your profile | Works |
+
+---
+
+## 6. Keep the API awake (optional, recommended)
+
+A free Render service **sleeps after 15 minutes without traffic**. The next visitor then waits 30–60 s, and that first request may fail once while it wakes. The repo includes a GitHub Actions job that pings the API every 14 minutes. One always-on service fits inside Render's 750 free hours a month.
+
+Turn it on: GitHub → your repo → **Settings → Secrets and variables → Actions → Variables → New repository variable**. Name it `BACKEND_URL` and set it to `https://labelsafe-api.onrender.com` (your Render URL, no trailing slash). To test it, go to **Actions → Keep backend awake → Run workflow**.
 
 ---
 
 ## 7. Your own domain (optional)
 
-1. In Vercel, go to **Settings → Domains → Add** and follow the DNS instructions. HTTPS is automatic.
-2. Replace the placeholder `labelsafe.example.com` with your domain in these three files, then commit and push:
-   - `frontend/index.html` (canonical and social-preview tags)
-   - `frontend/public/robots.txt`
-   - `frontend/public/sitemap.xml`
+1. Add the domain to the **Vercel** project (**Settings → Domains**). HTTPS is automatic. Render needs no domain, because visitors never call it directly.
+2. Replace the placeholder `labelsafe.example.com` with your domain in `frontend/index.html`, `frontend/public/robots.txt` and `frontend/public/sitemap.xml`, then push.
 
 ---
 
@@ -128,10 +117,12 @@ Replace `<your-app>` with your project's address (shown on the Vercel dashboard)
 
 | You want to… | Do this |
 |---|---|
-| Ship a code change | `git push`. Vercel deploys every push to `main` automatically, and every pull request gets its own preview URL. |
-| Change an environment variable | Vercel → **Settings → Environment Variables**, then **Redeploy** |
-| Apply a database migration (a new file in `migrations/`) | `DATABASE_URL='<DATABASE_URL_UNPOOLED>' .venv/bin/alembic upgrade head` |
-| Fetch more or newer FDA labels into Neon | `DATABASE_URL='<DATABASE_URL_UNPOOLED>' MODEL_MODE=fake .venv/bin/python -m src.labelsafe.ingestion.ingest_labels --limit 500`. Then run `make rules` locally, and commit and push `data/generated/fda_label_rules.json`. This keeps user accounts. |
+| Ship a code change | `git push`. Render redeploys the API and Vercel redeploys the website automatically. |
+| Change an API setting or secret | Render → `labelsafe-api` → **Environment** → edit → **Save, rebuild, and deploy** |
+| Apply a database migration | `DATABASE_URL='<Neon direct URL>' .venv/bin/alembic upgrade head` |
+| Fetch more or newer FDA labels | `DATABASE_URL='<Neon direct URL>' MODEL_MODE=fake .venv/bin/python -m src.labelsafe.ingestion.ingest_labels --limit 500`. Then run `make rules`, and commit and push `data/generated/fda_label_rules.json`. This keeps user accounts. |
+
+> **Warning:** don't run `make neon-copy` again once people have signed up. It **replaces** the whole Neon database with your local one, including accounts.
 
 ---
 
@@ -139,21 +130,23 @@ Replace `<your-app>` with your project's address (shown on the Vercel dashboard)
 
 | Symptom | Fix |
 |---|---|
-| Checks fail with a server error right after setup | You skipped **Redeploy** (step 5), or Neon isn't connected to the project (step 3). |
-| Runtime logs say "No safety rules loaded" | `data/generated/fda_label_rules.json` isn't committed. See step 1. |
-| Errors mentioning "prepared statement" | Neon's pooled URL is the culprit. In **Settings → Environment Variables**, set `DATABASE_URL` to the value of `DATABASE_URL_UNPOOLED` and redeploy. |
-| The first request after a quiet period is slow (1–3 s) | Normal on free tiers: Neon wakes its database and Vercel starts a function. |
-| Explanations quote the label instead of a written answer | Gemini's free tier is rate-limited. The app falls back to quoting the label text rather than failing. A paid Gemini key removes this. |
-| `make neon-copy` says `NEON_URL` is missing | Pass it on the same line, in single quotes, exactly as in step 4. |
-| Build fails mentioning `services` | Vercel Services is in Beta. Check the build log; the Vercel docs at vercel.com/docs/services have the current syntax. |
+| Site loads but every check says "Request failed" | The API isn't reachable. Open `https://labelsafe-api.onrender.com/health` directly. If that fails, check the Render **Logs**. If it works, check the URL in `frontend/vercel.json` and the Root Directory (step 4). |
+| The first check after a quiet period fails or takes about a minute | Render was asleep. Retry, or turn on step 6. |
+| Render build fails | Open the deploy's log in Render. A missing `uv.lock` or Python version error means the latest code isn't pushed (step 2). |
+| Render logs say "Set JWT_SECRET_KEY…" | The variable is missing. Render → Environment → add `JWT_SECRET_KEY` (any random 64-character string, e.g. from `openssl rand -hex 32`). |
+| Render logs say "No safety rules loaded" | `data/generated/fda_label_rules.json` isn't committed (step 2). |
+| Database connection errors in Render logs | Check `DATABASE_URL` on Render is Neon's direct URL, with `?sslmode=require`. |
+| Explanations quote the label instead of a written answer | Gemini's free tier is rate-limited; the app falls back to quoting the label. A paid key removes this. |
 
-Logs live in Vercel → your project → **Logs** (filter by the `api` service). Each line carries a `request_id`, which matches the `X-Request-ID` response header.
+**Logs:** Render → `labelsafe-api` → **Logs** (API). Vercel → project → **Logs** (website and forwarding).
 
 ---
 
-## 10. Free-tier limits and rules
+## 10. Free-tier limits
 
-- **Vercel Hobby** is for personal, **non-commercial** projects. That fits LabelSafe: its DDInter-derived data is also non-commercial only.
-- **Neon Free** gives 0.5 GB of storage (LabelSafe uses about 0.15 GB) and pauses the database when idle. It wakes automatically.
-- **Gemini free tier** allows a limited number of requests per minute and per day.
-- **Medical disclaimer:** LabelSafe is a research prototype, not a medical device. The site says so on every page and in the Terms. Keep it that way if you share the link.
+- **Render Free:** 512 MB RAM, sleeps after 15 idle minutes, 750 instance-hours a month.
+- **Vercel Hobby:** personal, **non-commercial** use. That matches LabelSafe's non-commercial DDInter data licence.
+- **Neon Free:** 0.5 GB storage (LabelSafe uses about 0.15 GB). It pauses when idle and wakes automatically.
+- **Gemini free tier:** limited requests per minute and per day.
+
+**Security:** if your Neon password was ever shared (for example, pasted into a chat), reset it in the Neon console (**Roles → neondb_owner → Reset password**), then update `DATABASE_URL` on Render.

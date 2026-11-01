@@ -281,6 +281,10 @@ class TestSyncTrackerAndRepositories:
         assert await repo.get_passages_by_rxcui("0000") == []
         assert await repo.get_passage(label.passages[0].passage_id) == label.passages[0]
         assert await repo.get_passage("00000000-0000-0000-0000-000000000000") is None
+        wanted = [p.passage_id for p in label.passages[:3]] + ["00000000-0000-0000-0000-000000000000"]
+        bulk = await repo.get_passages(wanted)
+        assert sorted(p.passage_id for p in bulk) == sorted(wanted[:3])  # the missing id is skipped
+        assert await repo.get_passages([]) == []
 
     async def test_mark_synced_and_failed_lifecycle(
         self, session_factory: async_sessionmaker[AsyncSession], seeded: None

@@ -1,0 +1,36 @@
+# LabelSafe API on Render (free). The website is on Vercel and forwards /api, /health and /navigator
+# here (frontend/vercel.json). Setup: deploy.md. Render prompts for the two `sync: false` secrets.
+services:
+  - type: web
+    name: labelsafe-api
+    runtime: python
+    plan: free
+    region: singapore # next to the Neon database (ap-southeast-1)
+    buildCommand: pip install uv && uv sync --frozen
+    # Vercel's proxy sends the visitor's IP in X-Forwarded-For; --proxy-headers makes it request.client.
+    startCommand: .venv/bin/uvicorn src.labelsafe.api.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: DATABASE_URL # Neon connection string (deploy.md step 1)
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      - key: MODEL_MODE # lite mode: the torch models don't fit in 512 MB
+        value: fake
+      - key: LLM_BACKEND
+        value: gemini
+      - key: GEMINI_MODEL
+        value: gemini-3.6-flash
+      - key: GEMINI_DAILY_BUDGET
+        value: "500"
+      - key: DATABASE_POOL_SIZE
+        value: "5"
+      - key: DATABASE_MAX_OVERFLOW
+        value: "5"
+      - key: LOG_LEVEL
+        value: INFO

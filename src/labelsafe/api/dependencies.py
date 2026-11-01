@@ -3,7 +3,6 @@ FastAPI dependency injection providers.
 Supplies singleton engines and security dependencies for route handlers.
 """
 
-import os
 from collections.abc import Callable
 from functools import lru_cache
 from typing import Any
@@ -76,13 +75,8 @@ def get_request_limiter() -> RequestLimiter:
 
 
 def client_ip(request: Request) -> str:
-    """The visitor's IP for rate limiting. On Vercel (which sets VERCEL=1) every request arrives from
-    Vercel's proxy, which overwrites x-real-ip / x-forwarded-for with the real client address, so they
-    can't be spoofed there; anywhere else those headers are client-controlled and ignored."""
-    if os.environ.get("VERCEL"):
-        forwarded = request.headers.get("x-real-ip") or request.headers.get("x-forwarded-for", "")
-        if ip := forwarded.split(",")[0].strip():
-            return ip
+    """The visitor's IP for rate limiting. Behind a proxy (Vercel → Render), uvicorn --proxy-headers
+    has already replaced request.client with the forwarded client address (render.yaml)."""
     return request.client.host if request.client else "unknown"
 
 

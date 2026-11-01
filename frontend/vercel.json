@@ -1,27 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "services": {
-    "web": {
-      "root": "frontend/",
-      "framework": "vite"
-    },
-    "api": {
-      "root": "./",
-      "framework": "fastapi",
-      "entrypoint": "src.labelsafe.api.main:app",
-      "functions": {
-        "src/labelsafe/api/main.py": {
-          "maxDuration": 60,
-          "excludeFiles": "{frontend/**,tests/**,scripts/**,migrations/**,data/benchmark/**,.venv/**,**/node_modules/**,**/__pycache__/**,*.md}"
-        }
-      }
-    }
-  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": { "service": "api" } },
-    { "source": "/navigator", "destination": { "service": "api" } },
-    { "source": "/health", "destination": { "service": "api" } },
-    { "source": "/(.*)", "destination": { "service": "web" } }
+    { "source": "/api/:path*", "destination": "https://labelsafe-api.onrender.com/api/:path*" },
+    { "source": "/health", "destination": "https://labelsafe-api.onrender.com/health" },
+    { "source": "/navigator", "destination": "https://labelsafe-api.onrender.com/navigator" }
   ],
   "headers": [
     {
@@ -36,6 +18,10 @@
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         { "key": "X-Frame-Options", "value": "DENY" }
       ]
+    },
+    {
+      "source": "/api/:path*",
+      "headers": [{ "key": "x-vercel-enable-rewrite-caching", "value": "0" }]
     },
     {
       "source": "/assets/(.*)",

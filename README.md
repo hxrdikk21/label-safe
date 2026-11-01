@@ -97,7 +97,7 @@ Self-RAG needs a model trained to emit reflection tokens, and I don't use one. C
 | Generator | Template or Gemini (`google-genai`) | The template is the offline fallback |
 | Auth | Argon2id + PyJWT + PyOTP | Password hashing, tokens, 2FA |
 | Frontend | React 19 + Vite | Single-page app |
-| Hosting | Vercel (frontend + FastAPI function) + Neon Postgres | Free tiers; see [deploy.md](deploy.md) |
+| Hosting | Vercel (website) + Render (API) + Neon (Postgres) | Free tiers; see [deploy.md](deploy.md) |
 | Quality | `pytest`, `ruff`, `mypy --strict`, `oxlint` | Run in CI |
 
 ---
@@ -125,17 +125,18 @@ label-safe/
 ├── data/               # Seed catalogue, generated rules, foods, benchmark scenarios
 ├── migrations/         # Alembic migrations
 ├── scripts/            # Seed catalogue builder
-├── vercel.json         # Vercel deployment: web + api services, routing, security headers
-└── deploy.md           # How to deploy for free on Vercel + Neon
+├── render.yaml         # Render Blueprint for the API (frontend/vercel.json forwards /api to it)
+├── DEPLOY_STEPS.md     # Click-by-click deployment checklist
+└── deploy.md           # Deployment guide and troubleshooting (Vercel + Render + Neon)
 ```
 
 ---
 
 ## Deploy
 
-LabelSafe deploys for free on **Vercel** (website + API) with a **Neon** Postgres database. Follow [deploy.md](deploy.md).
+LabelSafe deploys for free in three parts: the website on **Vercel**, the API on **Render**, and the database on **Neon**. Vercel forwards `/api` to Render, so the browser only ever talks to one address. Follow the checklist in [DEPLOY_STEPS.md](DEPLOY_STEPS.md); [deploy.md](deploy.md) explains the setup and covers troubleshooting.
 
-On Vercel it runs in **lite mode** (`MODEL_MODE=fake`): the torch models are too large for serverless functions, so label search uses a built-in lightweight embedder and word-overlap reranker. Safety findings are identical in both modes (they come from deterministic rules) and Gemini still writes the explanations. Run `MODEL_MODE=real` locally for the full models.
+The deployed API runs in **lite mode** (`MODEL_MODE=fake`): the torch models don't fit in the free 512 MB instance, so label search uses a built-in lightweight embedder and word-overlap reranker. Safety findings are identical in both modes (they come from deterministic rules) and Gemini still writes the explanations. Run `MODEL_MODE=real` locally for the full models.
 
 ---
 
@@ -183,7 +184,7 @@ npm --prefix frontend run dev
 
 | Setting | Values | Notes |
 |---|---|---|
-| `MODEL_MODE` | `real` / `fake` | `real` uses the bge embedder and reranker and needs `pip install -e ".[ml]"` (the default when it's installed). `fake` is lite mode: hashed embeddings and a word-overlap reranker, used on Vercel and in tests. |
+| `MODEL_MODE` | `real` / `fake` | `real` uses the bge embedder and reranker and needs `pip install -e ".[ml]"` (the default when it's installed). `fake` is lite mode: hashed embeddings and a word-overlap reranker, used in the deployed API and in tests. |
 | `LLM_BACKEND` | `template` / `gemini` | `gemini` uses `GEMINI_MODEL` (default `gemini-3.8-flash`) and needs `GEMINI_API_KEY`. |
 | `RETRIEVAL_TOP_K`, `RERANK_TOP_K`, `RERANK_MIN_SCORE`, `GATE_PROCEED_SCORE`, `GATE_REWRITE_SCORE`, `MAX_REWRITES` | numbers | The only RAG thresholds. Defaults are in `src/labelsafe/core/config.py`. |
 

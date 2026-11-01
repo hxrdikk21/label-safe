@@ -1,0 +1,16 @@
+# Optional: pings the Render backend so its free instance doesn't sleep (deploy.md step 6).
+# Off until you add a repository variable BACKEND_URL, e.g. https://labelsafe-api.onrender.com
+name: Keep backend awake
+
+on:
+  schedule:
+    - cron: "*/14 * * * *" # Render's free tier sleeps after 15 idle minutes
+  workflow_dispatch:
+
+jobs:
+  ping:
+    if: vars.BACKEND_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: curl -fsS --max-time 120 "${{ vars.BACKEND_URL }}/health"

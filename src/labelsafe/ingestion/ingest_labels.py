@@ -120,7 +120,7 @@ async def embed_pending(
 
 
 async def embed_stale(
-    session_factory: async_sessionmaker[AsyncSession], store: "PgVectorStore", batch_size: int = 64
+    session_factory: async_sessionmaker[AsyncSession], store: "PgVectorStore", batch_size: int = 500
 ) -> int:
     """Re-embeds passages whose vector is missing or came from another model, so one index never mixes
     vector spaces. Returns passages embedded."""
@@ -128,8 +128,8 @@ async def embed_stale(
     repo = PassageRepository(session_factory)
     embedded = 0
     for start in range(0, len(ids), batch_size):
-        batch = [p for pid in ids[start : start + batch_size] if (p := await repo.get_passage(pid))]
-        embedded += await store.upsert(batch)
+        embedded += await store.upsert(await repo.get_passages(ids[start : start + batch_size]))
+        logger.info("re-embedded %d/%d passages", embedded, len(ids))
     return embedded
 
 
